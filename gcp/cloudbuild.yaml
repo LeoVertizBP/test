@@ -1,0 +1,53 @@
+steps:
+  # Step 1: Build the Docker image
+  # This step uses the 'docker' builder to build the container image
+  # based on the Dockerfile in the current directory.
+  # The image is tagged with a unique name that includes the project ID,
+  # Artifact Registry location, repository name, service name, and commit SHA.
+  # This ensures unique and traceable image versions.
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '-t'
+      - 'gcr.io/ai-compliance/credit-compliance-frontend-prod:latest ./frontend --build-arg NEXT_PUBLIC_API_URL_ARG=https://credit-compliance-backend-prod-230308604765.us-south1.run.app'
+      - '.' # Build context is the current directory
+
+  # Step 2: Push the Docker image to Google Artifact Registry
+  # After building, this step pushes the newly created image to the specified
+  # Artifact Registry repository.
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'push'
+      - 'gcr.io/ai-compliance/credit-compliance-frontend-prod:latest'
+
+  # Step 3: Deploy the image to Google Cloud Run
+  # This step uses the 'gcloud' builder to deploy the container image
+  # to a Google Cloud Run service.
+  # It specifies the service name, image to deploy, platform (managed),
+  # region, and allows unauthenticated invocations (adjust as needed).
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'credit-compliance-frontend-prod' # The name of your Cloud Run service
+      - '--image'
+      - 'gcr.io/ai-compliance/credit-compliance-frontend-prod:latest'
+      - '--platform'
+      - 'managed' # Use 'gke' for GKE, 'managed' for Cloud Run fully managed
+      - '--region'
+      - 'us-south1' # The region where your Cloud Run service will be deployed
+      - '--allow-unauthenticated' # Allow unauthenticated invocations (optional)
+      - '--set-env-vars'
+      - 'NEXT_PUBLIC_API_URL=https://credit-compliance-backend-prod-230308604765.us-south1.run.app' # Set environment variables as needed
+      - '--memory'
+      - '512Mi' # Set memory limit for the Cloud Run service (adjust as needed)
+      - '--cpu'
+      - '1' # Set CPU limit for the Cloud Run service (adjust as needed)
+      - '--min-instances'
+      - '1' # Set minimum instances for the Cloud Run service (adjust as needed)
+      - '--max-instances'
+      - '2' # Set maximum instances for the Cloud Run service (adjust as needed)
+
+images:
+  - 'gcr.io/ai-compliance/credit-compliance-frontend-prod:latest' # Specify the image to be pushed to Artifact Registry
