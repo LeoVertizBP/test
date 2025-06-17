@@ -49,5 +49,8 @@ steps:
       - '--max-instances'
       - '2' # Set maximum instances for the Cloud Run service (adjust as needed)
 
+options:
+  logging: CLOUD_LOGGING_ONLY # Use Cloud Logging for build logs
+
 images:
   - 'gcr.io/ai-compliance/credit-compliance-frontend-prod:latest' # Specify the image to be pushed to Artifact Registry
