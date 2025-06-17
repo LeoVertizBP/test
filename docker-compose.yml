@@ -1,0 +1,151 @@
+services:
+  # Redis Service (for BullMQ queues)
+  redis:
+    image: "redis:alpine" # Use a standard Redis image
+    container_name: credit-compliance-redis
+    ports:
+      - "6379:6379" # Map Redis port (optional, for external tools)
+    volumes:
+      - redis_data:/data # Persist Redis data
+    networks:
+      - app-network # Connect to the same network
+
+  # Backend Service (Node.js/Express/Prisma)
+  backend:
+    build:
+      context: . # Build using the Dockerfile in the current directory
+      dockerfile: Dockerfile # Explicitly name the Dockerfile
+    container_name: credit-compliance-backend
+    ports:
+      - "3001:3001" # Map port 3001 on host to 3001 in container
+      - "5556:5555" # Changed host port for Prisma Studio to 5556
+    environment:
+      # Pass environment variables from the .env file
+      - DATABASE_URL=${DATABASE_URL}
+      - PORT=${PORT:-3001} # Use PORT from .env or default to 3001
+      # Add other necessary backend env vars here, referencing the .env file
+      - JWT_SECRET=${JWT_SECRET}
+      - GOOGLE_APPLICATION_CREDENTIALS=${GOOGLE_APPLICATION_CREDENTIALS}
+      - GCS_BUCKET_NAME=${GCS_BUCKET_NAME} # Reverted change in backend service
+      - VERTEX_AI_PROJECT_ID=${VERTEX_AI_PROJECT_ID}
+      - VERTEX_AI_LOCATION=${VERTEX_AI_LOCATION}
+      - APIFY_API_TOKEN=${APIFY_API_TOKEN}
+      # Add Secret Manager variables
+      - GCLOUD_PROJECT_ID=${GCLOUD_PROJECT_ID}
+      - GOOGLE_SECRET_MANAGER_CREDENTIALS_PATH=${GOOGLE_SECRET_MANAGER_CREDENTIALS_PATH}
+      - GOOGLE_SECRET_ADDER_CREDENTIALS_PATH=${GOOGLE_SECRET_ADDER_CREDENTIALS_PATH}
+      # - GCS_KEYFILE_PATH=${GCS_KEYFILE_PATH} # Removed - Use GOOGLE_APPLICATION_CREDENTIALS volume mount instead
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    volumes:
+      # Mount the source code for development (reflects changes without rebuild)
+      # Note: This can sometimes cause issues with node_modules on different OS.
+      # If issues arise, we might need to remove this or use a more specific volume strategy.
+      - ./src:/app/src
+      - ./prisma:/app/prisma
+      - ./migrations:/app/migrations # Mount the migrations directory
+      # Mount Google Cloud credentials if needed locally
+      - ${GOOGLE_APPLICATION_CREDENTIALS_PATH}:${GOOGLE_APPLICATION_CREDENTIALS}:ro
+      # Mount the job-specific log output directory
+      - ./job_logs_output:/app/job_logs 
+    networks: # Corrected indentation
+      - app-network # Connect to the custom network
+
+  # Crawler Worker Service
+  crawler-worker:
+    build:
+      context: . # Build using the Dockerfile in the current directory
+      dockerfile: Dockerfile # Explicitly name the Dockerfile
+    container_name: credit-compliance-crawler-worker # Different container name
+    # No ports needed for the worker
+    environment:
+      # Pass environment variables from the .env file (Copy from backend)
+      - DATABASE_URL=${DATABASE_URL}
+      - PORT=${PORT:-3001} # Port not used by worker, but keep for consistency? Or remove? Let's keep for now.
+      - JWT_SECRET=${JWT_SECRET}
+      - GOOGLE_APPLICATION_CREDENTIALS=${GOOGLE_APPLICATION_CREDENTIALS}
+      - GCS_BUCKET_NAME=${GCS_BUCKET_NAME} # Reverted back to GCS_BUCKET_NAME
+      - VERTEX_AI_PROJECT_ID=${VERTEX_AI_PROJECT_ID}
+      - VERTEX_AI_LOCATION=${VERTEX_AI_LOCATION}
+      - APIFY_API_TOKEN=${APIFY_API_TOKEN}
+      - REDIS_URL=${REDIS_URL} # Added: Worker needs Redis URL
+      - USER_AGENT=CreditComplianceCrawler/1.0 # Added: Good practice for worker
+    volumes:
+      # Mount the source code for development (Copy from backend)
+      - ./src:/app/src
+      - ./prisma:/app/prisma
+      # Mount Google Cloud credentials if needed locally (Copy from backend)
+      - ${GOOGLE_APPLICATION_CREDENTIALS_PATH}:${GOOGLE_APPLICATION_CREDENTIALS}:ro
+    command: node dist/workers/captureWorker.js # Added: Command to run the worker script
+    networks: # Corrected indentation
+      - app-network # Connect to the same custom network
+
+  # AI Bypass Worker Service
+  ai-bypass-worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: credit-compliance-ai-bypass-worker
+    command: npm run start:workers # Command to run the new worker service
+    depends_on:
+      - redis
+      # - backend # Optional: if workers need the API to be up for some reason
+      # - db # If you have a separate db service defined and workers connect directly on startup
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+      - REDIS_HOST=redis # Service name of Redis in this docker-compose
+      - REDIS_PORT=6379
+      # - REDIS_PASSWORD=${REDIS_PASSWORD} # Uncomment if you use a Redis password
+      # Add any other env vars your workerService.ts or its processors might need
+      - GOOGLE_APPLICATION_CREDENTIALS=${GOOGLE_APPLICATION_CREDENTIALS} # If needed by any underlying service
+      - GCS_BUCKET_NAME=${GCS_BUCKET_NAME}
+      - VERTEX_AI_PROJECT_ID=${VERTEX_AI_PROJECT_ID}
+      - VERTEX_AI_LOCATION=${VERTEX_AI_LOCATION}
+      - APIFY_API_TOKEN=${APIFY_API_TOKEN}
+      - GCLOUD_PROJECT_ID=${GCLOUD_PROJECT_ID}
+    volumes:
+      # Mount the source code for development (reflects changes without rebuild)
+      # Consider if this is needed for workers or if built image is sufficient
+      - ./src:/app/src 
+      - ./prisma:/app/prisma
+      # Mount Google Cloud credentials if used by workers
+      - ${GOOGLE_APPLICATION_CREDENTIALS_PATH}:${GOOGLE_APPLICATION_CREDENTIALS}:ro
+      # Mount the job-specific log output directory (if workerService uses it)
+      - ./job_logs_output:/app/job_logs 
+    networks:
+      - app-network
+
+  # Frontend Service (Next.js)
+  frontend:
+    build:
+      context: ./frontend # Build using the Dockerfile in the frontend directory
+      dockerfile: Dockerfile
+    container_name: credit-compliance-frontend
+    ports:
+      - "3000:3000" # Map port 3000 on host to 3000 in container
+    environment:
+      # Example: Pass the backend URL to the frontend
+      - NEXT_PUBLIC_API_URL=http://backend:3001 # Use service name 'backend'
+    depends_on:
+      - backend # Ensure the backend starts before the frontend
+    networks:
+      - app-network # Connect to the custom network
+    # Mount frontend source for development (reflects changes without rebuild)
+    volumes:
+      - ./frontend/src:/app/src
+      - ./frontend/public:/app/public
+
+# Define a custom network for services to communicate
+networks:
+  app-network:
+    driver: bridge
+
+# Removed the local postgres_data volume as we are using an external DB
+# volumes:
+#   postgres_data:
+#     driver: local
+
+# Define volumes for data persistence
+volumes:
+  redis_data: # Added volume for Redis persistence
+    driver: local

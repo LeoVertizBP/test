@@ -1,0 +1,35 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "check-navigation": "node src/test-utils/navigation-check.js",
+    "generate-nav-diagram": "ts-node src/test-utils/navigation-flow-diagram.ts"
+  },
+  "dependencies": {
+    "axios": "^1.9.0",
+    "lodash": "^4.17.21",
+    "next": "15.3.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.17.0",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "autoprefixer": "^10.4.16",
+    "chalk": "^4.1.2",
+    "eslint": "9.25.1",
+    "eslint-config-next": "15.3.1",
+    "postcss": "^8.4.31",
+    "source-map-js": "^1.2.1",
+    "tailwindcss": "^3.3.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5"
+  }
+}

@@ -1,0 +1,926 @@
+credit-compliance-backend  | 
+credit-compliance-backend  | > credit-compliance-tool@1.0.0 start
+credit-compliance-backend  | > node dist/server.js
+credit-compliance-backend  | 
+credit-compliance-backend  | WARN: FRONTEND_URL environment variable not set. CORS origin might be incorrect. Defaulting to http://localhost:3000 for local dev.
+credit-compliance-backend  | BullMQ Queues (aiBypassQueue, retroactiveBypassQueue) initialized.
+credit-compliance-backend  | Secret Manager Accessor Client initialized.
+credit-compliance-backend  | Secret Manager Manager Client initialized.
+credit-compliance-backend  | Mounting publisherChannelConfigRoutes at /:id/channels/:channelId/config
+credit-compliance-backend  | [2025-05-09T17:15:50.305Z] [INFO] [GcsService] Google Cloud Storage initialized for bucket: aethereal-compliance-ai-images using credentials at /etc/gcp/credentials.json
+credit-compliance-backend  | [2025-05-09T17:15:50.345Z] [INFO] [RateLimiter] Configuring rate limiter: Max 5 requests per 1 minute(s) per key.
+credit-compliance-backend  | Server is running on http://localhost:3001
+credit-compliance-backend  | Starting scan run monitoring every 15 seconds...
+credit-compliance-backend  | Connected to Redis server at redis:6379
+credit-compliance-backend  | JWT Verification Error: jwt expired
+credit-compliance-backend  | JWT Verification Error: jwt expired
+credit-compliance-backend  | JWT Verification Error: jwt expired
+credit-compliance-backend  | JWT Verification Error: jwt expired
+credit-compliance-backend  | JWT Verification Error: jwt expired
+credit-compliance-backend  | JWT Verification Error: jwt expired
+credit-compliance-backend  | JWT Verification Error: jwt expired
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | === FLAG STATS QUERY ===
+credit-compliance-backend  | Organization ID: 06e22f93-b541-4d1f-ae8a-0e8fed1b442d
+credit-compliance-backend  | Filters: {
+credit-compliance-backend  |   "startDate": "2025-04-09T00:00:00.000Z",
+credit-compliance-backend  |   "endDate": "2025-05-09T00:00:00.000Z"
+credit-compliance-backend  | }
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | GET /scan-jobs received with query params: [Object: null prototype] { limit: '100', _t: '1746810966658' }
+credit-compliance-backend  | Calling scanJobService.getScanJobs with: { where: {}, limitNum: 100, offsetNum: undefined }
+credit-compliance-backend  | getScanJobs service called with params: { where: {}, limit: 100, offset: undefined }
+credit-compliance-backend  | Finding scan jobs with where: {}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Getting organization filter for organization ID: 06e22f93-b541-4d1f-ae8a-0e8fed1b442d
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Getting organization filter for organization ID: 06e22f93-b541-4d1f-ae8a-0e8fed1b442d
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Getting organization filter for organization ID: 06e22f93-b541-4d1f-ae8a-0e8fed1b442d
+credit-compliance-backend  | Found publishers for organization: [
+credit-compliance-backend  |   { id: '9e0c0f13-d3d6-4bf8-ac6b-883c75d1870f', name: 'Aunt Kara' },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     id: 'f15f44d6-05d9-438c-80a7-37d1e456c929',
+credit-compliance-backend  |     name: 'High Sierra Points'
+credit-compliance-backend  |   },
+credit-compliance-backend  |   { id: '3519e2b6-0522-46fd-8759-d441dcf4139b', name: 'LWP' },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     id: 'ac903101-b18a-4620-a029-6006e754a5e0',
+credit-compliance-backend  |     name: 'Everydaytravelhacker'
+credit-compliance-backend  |   },
+credit-compliance-backend  |   { id: '26cd3bee-34ab-4153-92bf-2f682101dc8c', name: 'Dinkswithadog' },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     id: '03c777c4-1b55-427b-b2e4-0e409191fdf3',
+credit-compliance-backend  |     name: 'Sethsrandomtips'
+credit-compliance-backend  |   },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     id: '1d244103-9c08-4445-8554-a43fe8c0a2fd',
+credit-compliance-backend  |     name: 'Continental.ky'
+credit-compliance-backend  |   },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     id: '701c863c-fc57-4c4a-9e3a-15418f60b046',
+credit-compliance-backend  |     name: 'Pointsdadtravels'
+credit-compliance-backend  |   },
+credit-compliance-backend  |   { id: 'b04fb6c1-74fd-43aa-a4a8-3a9fd3df09cc', name: 'John Liang' },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     id: '12c9a23b-df0f-4c1c-843c-c0a818754bc1',
+credit-compliance-backend  |     name: 'Andrew Giancola'
+credit-compliance-backend  |   },
+credit-compliance-backend  |   { id: 'c2daad0f-2aad-4472-b999-285a97fdf191', name: 'Daniel Braun' },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     id: '7bb97fc3-e550-4998-85ca-8a7d5499bf9c',
+credit-compliance-backend  |     name: 'Spencer Johnson'
+credit-compliance-backend  |   },
+credit-compliance-backend  |   { id: '9a1fa11f-2b30-4646-89a4-65e0d73ef758', name: 'Mark Reese' },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     id: '62fe5de6-dc5b-4c4b-8f1f-dbbcdf91ee08',
+credit-compliance-backend  |     name: 'Travelmomsquad'
+credit-compliance-backend  |   },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     id: '7d4ade06-fbaf-4a93-a76f-32eea6c0484b',
+credit-compliance-backend  |     name: 'Max Miles Points'
+credit-compliance-backend  |   },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     id: '9fe49aa4-1d95-4a35-8a8d-2aaee0f44a15',
+credit-compliance-backend  |     name: 'Upgraded Points'
+credit-compliance-backend  |   },
+credit-compliance-backend  |   { id: '7ed6070f-8b76-4c27-a131-64450732ad3f', name: '10xTravel' }
+credit-compliance-backend  | ]
+credit-compliance-backend  | Found advertisers for organization: [
+credit-compliance-backend  |   { id: '201fdcca-0d49-42e0-a611-5088611b4bff', name: 'Chase' },
+credit-compliance-backend  |   { id: '8094a374-60a7-4ff9-8c07-59e76873ef47', name: 'Test' }
+credit-compliance-backend  | ]
+credit-compliance-backend  | Total flags in database (no filters): 1765
+credit-compliance-backend  | Getting organization filter for organization ID: 06e22f93-b541-4d1f-ae8a-0e8fed1b442d
+credit-compliance-backend  | Found publishers for organization: [
+credit-compliance-backend  |   { id: '9e0c0f13-d3d6-4bf8-ac6b-883c75d1870f', name: 'Aunt Kara' },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     id: 'f15f44d6-05d9-438c-80a7-37d1e456c929',
+credit-compliance-backend  |     name: 'High Sierra Points'
+credit-compliance-backend  |   },
+credit-compliance-backend  |   { id: '3519e2b6-0522-46fd-8759-d441dcf4139b', name: 'LWP' },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     id: 'ac903101-b18a-4620-a029-6006e754a5e0',
+credit-compliance-backend  |     name: 'Everydaytravelhacker'
+credit-compliance-backend  |   },
+credit-compliance-backend  |   { id: '26cd3bee-34ab-4153-92bf-2f682101dc8c', name: 'Dinkswithadog' },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     id: '03c777c4-1b55-427b-b2e4-0e409191fdf3',
+credit-compliance-backend  |     name: 'Sethsrandomtips'
+credit-compliance-backend  |   },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     id: '1d244103-9c08-4445-8554-a43fe8c0a2fd',
+credit-compliance-backend  |     name: 'Continental.ky'
+credit-compliance-backend  |   },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     id: '701c863c-fc57-4c4a-9e3a-15418f60b046',
+credit-compliance-backend  |     name: 'Pointsdadtravels'
+credit-compliance-backend  |   },
+credit-compliance-backend  |   { id: 'b04fb6c1-74fd-43aa-a4a8-3a9fd3df09cc', name: 'John Liang' },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     id: '12c9a23b-df0f-4c1c-843c-c0a818754bc1',
+credit-compliance-backend  |     name: 'Andrew Giancola'
+credit-compliance-backend  |   },
+credit-compliance-backend  |   { id: 'c2daad0f-2aad-4472-b999-285a97fdf191', name: 'Daniel Braun' },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     id: '7bb97fc3-e550-4998-85ca-8a7d5499bf9c',
+credit-compliance-backend  |     name: 'Spencer Johnson'
+credit-compliance-backend  |   },
+credit-compliance-backend  |   { id: '9a1fa11f-2b30-4646-89a4-65e0d73ef758', name: 'Mark Reese' },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     id: '62fe5de6-dc5b-4c4b-8f1f-dbbcdf91ee08',
+credit-compliance-backend  |     name: 'Travelmomsquad'
+credit-compliance-backend  |   },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     id: '7d4ade06-fbaf-4a93-a76f-32eea6c0484b',
+credit-compliance-backend  |     name: 'Max Miles Points'
+credit-compliance-backend  |   },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     id: '9fe49aa4-1d95-4a35-8a8d-2aaee0f44a15',
+credit-compliance-backend  |     name: 'Upgraded Points'
+credit-compliance-backend  |   },
+credit-compliance-backend  |   { id: '7ed6070f-8b76-4c27-a131-64450732ad3f', name: '10xTravel' }
+credit-compliance-backend  | ]
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Getting organization filter for organization ID: 06e22f93-b541-4d1f-ae8a-0e8fed1b442d
+credit-compliance-backend  | Found publishers for organization: [
+credit-compliance-backend  |   { id: '9e0c0f13-d3d6-4bf8-ac6b-883c75d1870f', name: 'Aunt Kara' },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     id: 'f15f44d6-05d9-438c-80a7-37d1e456c929',
+credit-compliance-backend  |     name: 'High Sierra Points'
+credit-compliance-backend  |   },
+credit-compliance-backend  |   { id: '3519e2b6-0522-46fd-8759-d441dcf4139b', name: 'LWP' },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     id: 'ac903101-b18a-4620-a029-6006e754a5e0',
+credit-compliance-backend  |     name: 'Everydaytravelhacker'
+credit-compliance-backend  |   },
+credit-compliance-backend  |   { id: '26cd3bee-34ab-4153-92bf-2f682101dc8c', name: 'Dinkswithadog' },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     id: '03c777c4-1b55-427b-b2e4-0e409191fdf3',
+credit-compliance-backend  |     name: 'Sethsrandomtips'
+credit-compliance-backend  |   },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     id: '1d244103-9c08-4445-8554-a43fe8c0a2fd',
+credit-compliance-backend  |     name: 'Continental.ky'
+credit-compliance-backend  |   },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     id: '701c863c-fc57-4c4a-9e3a-15418f60b046',
+credit-compliance-backend  |     name: 'Pointsdadtravels'
+credit-compliance-backend  |   },
+credit-compliance-backend  |   { id: 'b04fb6c1-74fd-43aa-a4a8-3a9fd3df09cc', name: 'John Liang' },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     id: '12c9a23b-df0f-4c1c-843c-c0a818754bc1',
+credit-compliance-backend  |     name: 'Andrew Giancola'
+credit-compliance-backend  |   },
+credit-compliance-backend  |   { id: 'c2daad0f-2aad-4472-b999-285a97fdf191', name: 'Daniel Braun' },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     id: '7bb97fc3-e550-4998-85ca-8a7d5499bf9c',
+credit-compliance-backend  |     name: 'Spencer Johnson'
+credit-compliance-backend  |   },
+credit-compliance-backend  |   { id: '9a1fa11f-2b30-4646-89a4-65e0d73ef758', name: 'Mark Reese' },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     id: '62fe5de6-dc5b-4c4b-8f1f-dbbcdf91ee08',
+credit-compliance-backend  |     name: 'Travelmomsquad'
+credit-compliance-backend  |   },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     id: '7d4ade06-fbaf-4a93-a76f-32eea6c0484b',
+credit-compliance-backend  |     name: 'Max Miles Points'
+credit-compliance-backend  |   },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     id: '9fe49aa4-1d95-4a35-8a8d-2aaee0f44a15',
+credit-compliance-backend  |     name: 'Upgraded Points'
+credit-compliance-backend  |   },
+credit-compliance-backend  |   { id: '7ed6070f-8b76-4c27-a131-64450732ad3f', name: '10xTravel' }
+credit-compliance-backend  | ]
+credit-compliance-backend  | Found advertisers for organization: [
+credit-compliance-backend  |   { id: '201fdcca-0d49-42e0-a611-5088611b4bff', name: 'Chase' },
+credit-compliance-backend  |   { id: '8094a374-60a7-4ff9-8c07-59e76873ef47', name: 'Test' }
+credit-compliance-backend  | ]
+credit-compliance-backend  | Using startDate filter for violations: {
+credit-compliance-backend  |   original: 2025-04-09T00:00:00.000Z,
+credit-compliance-backend  |   parsed: 2025-04-09T00:00:00.000Z,
+credit-compliance-backend  |   isoString: '2025-04-09T00:00:00.000Z',
+credit-compliance-backend  |   sqlFormatted: '2025-04-09T00:00:00.000Z'
+credit-compliance-backend  | }
+credit-compliance-backend  | Using endDate filter for violations: {
+credit-compliance-backend  |   original: 2025-05-09T23:59:59.999Z,
+credit-compliance-backend  |   parsed: 2025-05-09T23:59:59.999Z,
+credit-compliance-backend  |   isoString: '2025-05-09T23:59:59.999Z',
+credit-compliance-backend  |   sqlFormatted: '2025-05-09T23:59:59.999Z'
+credit-compliance-backend  | }
+credit-compliance-backend  | Found publishers for organization: [
+credit-compliance-backend  |   { id: '9e0c0f13-d3d6-4bf8-ac6b-883c75d1870f', name: 'Aunt Kara' },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     id: 'f15f44d6-05d9-438c-80a7-37d1e456c929',
+credit-compliance-backend  |     name: 'High Sierra Points'
+credit-compliance-backend  |   },
+credit-compliance-backend  |   { id: '3519e2b6-0522-46fd-8759-d441dcf4139b', name: 'LWP' },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     id: 'ac903101-b18a-4620-a029-6006e754a5e0',
+credit-compliance-backend  |     name: 'Everydaytravelhacker'
+credit-compliance-backend  |   },
+credit-compliance-backend  |   { id: '26cd3bee-34ab-4153-92bf-2f682101dc8c', name: 'Dinkswithadog' },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     id: '03c777c4-1b55-427b-b2e4-0e409191fdf3',
+credit-compliance-backend  |     name: 'Sethsrandomtips'
+credit-compliance-backend  |   },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     id: '1d244103-9c08-4445-8554-a43fe8c0a2fd',
+credit-compliance-backend  |     name: 'Continental.ky'
+credit-compliance-backend  |   },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     id: '701c863c-fc57-4c4a-9e3a-15418f60b046',
+credit-compliance-backend  |     name: 'Pointsdadtravels'
+credit-compliance-backend  |   },
+credit-compliance-backend  |   { id: 'b04fb6c1-74fd-43aa-a4a8-3a9fd3df09cc', name: 'John Liang' },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     id: '12c9a23b-df0f-4c1c-843c-c0a818754bc1',
+credit-compliance-backend  |     name: 'Andrew Giancola'
+credit-compliance-backend  |   },
+credit-compliance-backend  |   { id: 'c2daad0f-2aad-4472-b999-285a97fdf191', name: 'Daniel Braun' },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     id: '7bb97fc3-e550-4998-85ca-8a7d5499bf9c',
+credit-compliance-backend  |     name: 'Spencer Johnson'
+credit-compliance-backend  |   },
+credit-compliance-backend  |   { id: '9a1fa11f-2b30-4646-89a4-65e0d73ef758', name: 'Mark Reese' },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     id: '62fe5de6-dc5b-4c4b-8f1f-dbbcdf91ee08',
+credit-compliance-backend  |     name: 'Travelmomsquad'
+credit-compliance-backend  |   },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     id: '7d4ade06-fbaf-4a93-a76f-32eea6c0484b',
+credit-compliance-backend  |     name: 'Max Miles Points'
+credit-compliance-backend  |   },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     id: '9fe49aa4-1d95-4a35-8a8d-2aaee0f44a15',
+credit-compliance-backend  |     name: 'Upgraded Points'
+credit-compliance-backend  |   },
+credit-compliance-backend  |   { id: '7ed6070f-8b76-4c27-a131-64450732ad3f', name: '10xTravel' }
+credit-compliance-backend  | ]
+credit-compliance-backend  | Enriched job 32e85572-3f5a-4e41-8748-bc01b74780a2 with counts: {
+credit-compliance-backend  |   items_count: 50,
+credit-compliance-backend  |   total_flags: 199,
+credit-compliance-backend  |   pending_flags: 197,
+credit-compliance-backend  |   closed_flags: 1,
+credit-compliance-backend  |   assignee_name: undefined
+credit-compliance-backend  | }
+credit-compliance-backend  | Found advertisers for organization: [
+credit-compliance-backend  |   { id: '201fdcca-0d49-42e0-a611-5088611b4bff', name: 'Chase' },
+credit-compliance-backend  |   { id: '8094a374-60a7-4ff9-8c07-59e76873ef47', name: 'Test' }
+credit-compliance-backend  | ]
+credit-compliance-backend  | Using startDate filter for AI stats: {
+credit-compliance-backend  |   original: 2025-04-09T00:00:00.000Z,
+credit-compliance-backend  |   parsed: 2025-04-09T00:00:00.000Z,
+credit-compliance-backend  |   isoString: '2025-04-09T00:00:00.000Z',
+credit-compliance-backend  |   sqlFormatted: '2025-04-09T00:00:00.000Z'
+credit-compliance-backend  | }
+credit-compliance-backend  | Using endDate filter for AI stats: {
+credit-compliance-backend  |   original: 2025-05-09T23:59:59.999Z,
+credit-compliance-backend  |   parsed: 2025-05-09T23:59:59.999Z,
+credit-compliance-backend  |   isoString: '2025-05-09T23:59:59.999Z',
+credit-compliance-backend  |   sqlFormatted: '2025-05-09T23:59:59.999Z'
+credit-compliance-backend  | }
+credit-compliance-backend  | Found advertisers for organization: [
+credit-compliance-backend  |   { id: '201fdcca-0d49-42e0-a611-5088611b4bff', name: 'Chase' },
+credit-compliance-backend  |   { id: '8094a374-60a7-4ff9-8c07-59e76873ef47', name: 'Test' }
+credit-compliance-backend  | ]
+credit-compliance-backend  | Publisher IDs for organization: [
+credit-compliance-backend  |   '9e0c0f13-d3d6-4bf8-ac6b-883c75d1870f',
+credit-compliance-backend  |   'f15f44d6-05d9-438c-80a7-37d1e456c929',
+credit-compliance-backend  |   '3519e2b6-0522-46fd-8759-d441dcf4139b',
+credit-compliance-backend  |   'ac903101-b18a-4620-a029-6006e754a5e0',
+credit-compliance-backend  |   '26cd3bee-34ab-4153-92bf-2f682101dc8c',
+credit-compliance-backend  |   '03c777c4-1b55-427b-b2e4-0e409191fdf3',
+credit-compliance-backend  |   '1d244103-9c08-4445-8554-a43fe8c0a2fd',
+credit-compliance-backend  |   '701c863c-fc57-4c4a-9e3a-15418f60b046',
+credit-compliance-backend  |   'b04fb6c1-74fd-43aa-a4a8-3a9fd3df09cc',
+credit-compliance-backend  |   '12c9a23b-df0f-4c1c-843c-c0a818754bc1',
+credit-compliance-backend  |   'c2daad0f-2aad-4472-b999-285a97fdf191',
+credit-compliance-backend  |   '7bb97fc3-e550-4998-85ca-8a7d5499bf9c',
+credit-compliance-backend  |   '9a1fa11f-2b30-4646-89a4-65e0d73ef758',
+credit-compliance-backend  |   '62fe5de6-dc5b-4c4b-8f1f-dbbcdf91ee08',
+credit-compliance-backend  |   '7d4ade06-fbaf-4a93-a76f-32eea6c0484b',
+credit-compliance-backend  |   '9fe49aa4-1d95-4a35-8a8d-2aaee0f44a15',
+credit-compliance-backend  |   '7ed6070f-8b76-4c27-a131-64450732ad3f'
+credit-compliance-backend  | ]
+credit-compliance-backend  | Using startDate filter: {
+credit-compliance-backend  |   original: 2025-04-09T00:00:00.000Z,
+credit-compliance-backend  |   parsed: 2025-04-09T00:00:00.000Z,
+credit-compliance-backend  |   isoString: '2025-04-09T00:00:00.000Z',
+credit-compliance-backend  |   sqlFormatted: '2025-04-09T00:00:00.000Z'
+credit-compliance-backend  | }
+credit-compliance-backend  | Using endDate filter: {
+credit-compliance-backend  |   original: 2025-05-09T23:59:59.999Z,
+credit-compliance-backend  |   parsed: 2025-05-09T23:59:59.999Z,
+credit-compliance-backend  |   isoString: '2025-05-09T23:59:59.999Z',
+credit-compliance-backend  |   sqlFormatted: '2025-05-09T23:59:59.999Z'
+credit-compliance-backend  | }
+credit-compliance-backend  | Flag stats base where clause: {
+credit-compliance-backend  |   "content_items": {
+credit-compliance-backend  |     "publisher_id": {
+credit-compliance-backend  |       "in": [
+credit-compliance-backend  |         "9e0c0f13-d3d6-4bf8-ac6b-883c75d1870f",
+credit-compliance-backend  |         "f15f44d6-05d9-438c-80a7-37d1e456c929",
+credit-compliance-backend  |         "3519e2b6-0522-46fd-8759-d441dcf4139b",
+credit-compliance-backend  |         "ac903101-b18a-4620-a029-6006e754a5e0",
+credit-compliance-backend  |         "26cd3bee-34ab-4153-92bf-2f682101dc8c",
+credit-compliance-backend  |         "03c777c4-1b55-427b-b2e4-0e409191fdf3",
+credit-compliance-backend  |         "1d244103-9c08-4445-8554-a43fe8c0a2fd",
+credit-compliance-backend  |         "701c863c-fc57-4c4a-9e3a-15418f60b046",
+credit-compliance-backend  |         "b04fb6c1-74fd-43aa-a4a8-3a9fd3df09cc",
+credit-compliance-backend  |         "12c9a23b-df0f-4c1c-843c-c0a818754bc1",
+credit-compliance-backend  |         "c2daad0f-2aad-4472-b999-285a97fdf191",
+credit-compliance-backend  |         "7bb97fc3-e550-4998-85ca-8a7d5499bf9c",
+credit-compliance-backend  |         "9a1fa11f-2b30-4646-89a4-65e0d73ef758",
+credit-compliance-backend  |         "62fe5de6-dc5b-4c4b-8f1f-dbbcdf91ee08",
+credit-compliance-backend  |         "7d4ade06-fbaf-4a93-a76f-32eea6c0484b",
+credit-compliance-backend  |         "9fe49aa4-1d95-4a35-8a8d-2aaee0f44a15",
+credit-compliance-backend  |         "7ed6070f-8b76-4c27-a131-64450732ad3f"
+credit-compliance-backend  |       ]
+credit-compliance-backend  |     }
+credit-compliance-backend  |   },
+credit-compliance-backend  |   "created_at": {
+credit-compliance-backend  |     "gte": "2025-04-09T00:00:00.000Z",
+credit-compliance-backend  |     "lte": "2025-05-09T23:59:59.999Z"
+credit-compliance-backend  |   }
+credit-compliance-backend  | }
+credit-compliance-backend  | Total flags count: 1765
+credit-compliance-backend  | Raw average confidence from DB: 0.92683852691218130312
+credit-compliance-backend  | Formatted average confidence (after * 100): 92.68385269121812
+credit-compliance-backend  | Pending flags count: 1705
+credit-compliance-backend  | Enriched job 5440bde7-3c9b-4e78-b719-6f76020b50dd with counts: {
+credit-compliance-backend  |   items_count: 3,
+credit-compliance-backend  |   total_flags: 43,
+credit-compliance-backend  |   pending_flags: 0,
+credit-compliance-backend  |   closed_flags: 5,
+credit-compliance-backend  |   assignee_name: undefined
+credit-compliance-backend  | }
+credit-compliance-backend  | Enriched job bd1bad3e-265e-48af-bc7b-f9bb15952f6a with counts: {
+credit-compliance-backend  |   items_count: 18,
+credit-compliance-backend  |   total_flags: 78,
+credit-compliance-backend  |   pending_flags: 78,
+credit-compliance-backend  |   closed_flags: 0,
+credit-compliance-backend  |   assignee_name: undefined
+credit-compliance-backend  | }
+credit-compliance-backend  | Found publishers for organization: [
+credit-compliance-backend  |   { id: '9e0c0f13-d3d6-4bf8-ac6b-883c75d1870f', name: 'Aunt Kara' },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     id: 'f15f44d6-05d9-438c-80a7-37d1e456c929',
+credit-compliance-backend  |     name: 'High Sierra Points'
+credit-compliance-backend  |   },
+credit-compliance-backend  |   { id: '3519e2b6-0522-46fd-8759-d441dcf4139b', name: 'LWP' },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     id: 'ac903101-b18a-4620-a029-6006e754a5e0',
+credit-compliance-backend  |     name: 'Everydaytravelhacker'
+credit-compliance-backend  |   },
+credit-compliance-backend  |   { id: '26cd3bee-34ab-4153-92bf-2f682101dc8c', name: 'Dinkswithadog' },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     id: '03c777c4-1b55-427b-b2e4-0e409191fdf3',
+credit-compliance-backend  |     name: 'Sethsrandomtips'
+credit-compliance-backend  |   },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     id: '1d244103-9c08-4445-8554-a43fe8c0a2fd',
+credit-compliance-backend  |     name: 'Continental.ky'
+credit-compliance-backend  |   },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     id: '701c863c-fc57-4c4a-9e3a-15418f60b046',
+credit-compliance-backend  |     name: 'Pointsdadtravels'
+credit-compliance-backend  |   },
+credit-compliance-backend  |   { id: 'b04fb6c1-74fd-43aa-a4a8-3a9fd3df09cc', name: 'John Liang' },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     id: '12c9a23b-df0f-4c1c-843c-c0a818754bc1',
+credit-compliance-backend  |     name: 'Andrew Giancola'
+credit-compliance-backend  |   },
+credit-compliance-backend  |   { id: 'c2daad0f-2aad-4472-b999-285a97fdf191', name: 'Daniel Braun' },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     id: '7bb97fc3-e550-4998-85ca-8a7d5499bf9c',
+credit-compliance-backend  |     name: 'Spencer Johnson'
+credit-compliance-backend  |   },
+credit-compliance-backend  |   { id: '9a1fa11f-2b30-4646-89a4-65e0d73ef758', name: 'Mark Reese' },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     id: '62fe5de6-dc5b-4c4b-8f1f-dbbcdf91ee08',
+credit-compliance-backend  |     name: 'Travelmomsquad'
+credit-compliance-backend  |   },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     id: '7d4ade06-fbaf-4a93-a76f-32eea6c0484b',
+credit-compliance-backend  |     name: 'Max Miles Points'
+credit-compliance-backend  |   },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     id: '9fe49aa4-1d95-4a35-8a8d-2aaee0f44a15',
+credit-compliance-backend  |     name: 'Upgraded Points'
+credit-compliance-backend  |   },
+credit-compliance-backend  |   { id: '7ed6070f-8b76-4c27-a131-64450732ad3f', name: '10xTravel' }
+credit-compliance-backend  | ]
+credit-compliance-backend  | In review flags count: 0
+credit-compliance-backend  | Enriched job 95248f44-80a0-469b-8a16-bf67e61c6fe9 with counts: {
+credit-compliance-backend  |   items_count: 50,
+credit-compliance-backend  |   total_flags: 33,
+credit-compliance-backend  |   pending_flags: 33,
+credit-compliance-backend  |   closed_flags: 0,
+credit-compliance-backend  |   assignee_name: undefined
+credit-compliance-backend  | }
+credit-compliance-backend  | Enriched job 3152a499-4d60-4cc2-ba8c-967c135a22c6 with counts: {
+credit-compliance-backend  |   items_count: 15,
+credit-compliance-backend  |   total_flags: 59,
+credit-compliance-backend  |   pending_flags: 59,
+credit-compliance-backend  |   closed_flags: 0,
+credit-compliance-backend  |   assignee_name: undefined
+credit-compliance-backend  | }
+credit-compliance-backend  | Enriched job 80a82e30-14dd-478e-9c81-2ee91a8f52dc with counts: {
+credit-compliance-backend  |   items_count: 6,
+credit-compliance-backend  |   total_flags: 31,
+credit-compliance-backend  |   pending_flags: 16,
+credit-compliance-backend  |   closed_flags: 8,
+credit-compliance-backend  |   assignee_name: undefined
+credit-compliance-backend  | }
+credit-compliance-backend  | Enriched job daf653c2-cd19-4d7c-8a49-f9318c1f5581 with counts: {
+credit-compliance-backend  |   items_count: 18,
+credit-compliance-backend  |   total_flags: 42,
+credit-compliance-backend  |   pending_flags: 42,
+credit-compliance-backend  |   closed_flags: 0,
+credit-compliance-backend  |   assignee_name: undefined
+credit-compliance-backend  | }
+credit-compliance-backend  | Enriched job eabc93b8-678e-4b90-8a4c-088be1bd8d88 with counts: {
+credit-compliance-backend  |   items_count: 788,
+credit-compliance-backend  |   total_flags: 1259,
+credit-compliance-backend  |   pending_flags: 1259,
+credit-compliance-backend  |   closed_flags: 0,
+credit-compliance-backend  |   assignee_name: 'tcormier321@gmail.com'
+credit-compliance-backend  | }
+credit-compliance-backend  | Enriched job 2d8ad528-a1b1-40f1-b22d-d5278e4af6a7 with counts: {
+credit-compliance-backend  |   items_count: 18,
+credit-compliance-backend  |   total_flags: 21,
+credit-compliance-backend  |   pending_flags: 21,
+credit-compliance-backend  |   closed_flags: 0,
+credit-compliance-backend  |   assignee_name: 'tcormier321@gmail.com'
+credit-compliance-backend  | }
+credit-compliance-backend  | Retrieved 9 scan jobs
+credit-compliance-backend  | Found advertisers for organization: [
+credit-compliance-backend  |   { id: '201fdcca-0d49-42e0-a611-5088611b4bff', name: 'Chase' },
+credit-compliance-backend  |   { id: '8094a374-60a7-4ff9-8c07-59e76873ef47', name: 'Test' }
+credit-compliance-backend  | ]
+credit-compliance-backend  | Remediating flags count: 46
+credit-compliance-backend  | Found 60 flags with both AI and human verdicts
+credit-compliance-backend  | Flag status: REMEDIATING, AI: violation, Human: violation, Agreement: true
+credit-compliance-backend  | Flag status: CLOSED, AI: compliant, Human: compliant, Agreement: true
+credit-compliance-backend  | Flag status: REMEDIATING, AI: compliant, Human: violation, Agreement: false
+credit-compliance-backend  | Flag status: REMEDIATING, AI: violation, Human: violation, Agreement: true
+credit-compliance-backend  | Flag status: REMEDIATING, AI: violation, Human: violation, Agreement: true
+credit-compliance-backend  | Flag status: REMEDIATING, AI: violation, Human: violation, Agreement: true
+credit-compliance-backend  | Flag status: REMEDIATING, AI: violation, Human: violation, Agreement: true
+credit-compliance-backend  | Flag status: CLOSED, AI: compliant, Human: compliant, Agreement: true
+credit-compliance-backend  | Flag status: CLOSED, AI: compliant, Human: compliant, Agreement: true
+credit-compliance-backend  | Flag status: CLOSED, AI: compliant, Human: compliant, Agreement: true
+credit-compliance-backend  | Flag status: CLOSED, AI: compliant, Human: compliant, Agreement: true
+credit-compliance-backend  | Flag status: REMEDIATING, AI: compliant, Human: violation, Agreement: false
+credit-compliance-backend  | Flag status: CLOSED, AI: compliant, Human: compliant, Agreement: true
+credit-compliance-backend  | Flag status: CLOSED, AI: compliant, Human: compliant, Agreement: true
+credit-compliance-backend  | Flag status: CLOSED, AI: compliant, Human: compliant, Agreement: true
+credit-compliance-backend  | Flag status: CLOSED, AI: compliant, Human: compliant, Agreement: true
+credit-compliance-backend  | Flag status: REMEDIATING, AI: compliant, Human: violation, Agreement: false
+credit-compliance-backend  | Flag status: REMEDIATING, AI: violation, Human: violation, Agreement: true
+credit-compliance-backend  | Flag status: CLOSED, AI: compliant, Human: compliant, Agreement: true
+credit-compliance-backend  | Flag status: REMEDIATING, AI: violation, Human: violation, Agreement: true
+credit-compliance-backend  | Flag status: REMEDIATING, AI: violation, Human: violation, Agreement: true
+credit-compliance-backend  | Flag status: REMEDIATING, AI: violation, Human: violation, Agreement: true
+credit-compliance-backend  | Flag status: REMEDIATING, AI: violation, Human: violation, Agreement: true
+credit-compliance-backend  | Flag status: REMEDIATING, AI: violation, Human: violation, Agreement: true
+credit-compliance-backend  | Flag status: REMEDIATING, AI: violation, Human: violation, Agreement: true
+credit-compliance-backend  | Flag status: REMEDIATING, AI: violation, Human: violation, Agreement: true
+credit-compliance-backend  | Flag status: REMEDIATING, AI: violation, Human: violation, Agreement: true
+credit-compliance-backend  | Flag status: REMEDIATING, AI: violation, Human: violation, Agreement: true
+credit-compliance-backend  | Flag status: REMEDIATING, AI: violation, Human: violation, Agreement: true
+credit-compliance-backend  | Flag status: REMEDIATING, AI: violation, Human: violation, Agreement: true
+credit-compliance-backend  | Flag status: REMEDIATING, AI: violation, Human: violation, Agreement: true
+credit-compliance-backend  | Flag status: REMEDIATING, AI: violation, Human: violation, Agreement: true
+credit-compliance-backend  | Flag status: CLOSED, AI: violation, Human: compliant, Agreement: false
+credit-compliance-backend  | Flag status: CLOSED, AI: violation, Human: compliant, Agreement: false
+credit-compliance-backend  | Flag status: CLOSED, AI: violation, Human: compliant, Agreement: false
+credit-compliance-backend  | Flag status: REMEDIATING, AI: violation, Human: violation, Agreement: true
+credit-compliance-backend  | Flag status: REMEDIATING, AI: violation, Human: violation, Agreement: true
+credit-compliance-backend  | Flag status: REMEDIATING, AI: violation, Human: violation, Agreement: true
+credit-compliance-backend  | Flag status: REMEDIATING, AI: violation, Human: violation, Agreement: true
+credit-compliance-backend  | Flag status: REMEDIATING, AI: violation, Human: violation, Agreement: true
+credit-compliance-backend  | Flag status: REMEDIATING, AI: violation, Human: violation, Agreement: true
+credit-compliance-backend  | Flag status: REMEDIATING, AI: violation, Human: violation, Agreement: true
+credit-compliance-backend  | Flag status: REMEDIATING, AI: violation, Human: violation, Agreement: true
+credit-compliance-backend  | Flag status: REMEDIATING, AI: violation, Human: violation, Agreement: true
+credit-compliance-backend  | Flag status: REMEDIATING, AI: violation, Human: violation, Agreement: true
+credit-compliance-backend  | Flag status: REMEDIATING, AI: violation, Human: violation, Agreement: true
+credit-compliance-backend  | Flag status: REMEDIATING, AI: violation, Human: violation, Agreement: true
+credit-compliance-backend  | Flag status: REMEDIATING, AI: violation, Human: violation, Agreement: true
+credit-compliance-backend  | Flag status: CLOSED, AI: compliant, Human: compliant, Agreement: true
+credit-compliance-backend  | Flag status: REMEDIATING, AI: violation, Human: violation, Agreement: true
+credit-compliance-backend  | Flag status: REMEDIATING, AI: violation, Human: violation, Agreement: true
+credit-compliance-backend  | Flag status: REMEDIATING, AI: violation, Human: violation, Agreement: true
+credit-compliance-backend  | Flag status: REMEDIATING, AI: violation, Human: violation, Agreement: true
+credit-compliance-backend  | Flag status: REMEDIATING, AI: violation, Human: violation, Agreement: true
+credit-compliance-backend  | Flag status: REMEDIATING, AI: violation, Human: violation, Agreement: true
+credit-compliance-backend  | Flag status: REMEDIATING, AI: violation, Human: violation, Agreement: true
+credit-compliance-backend  | Flag status: REMEDIATING, AI: violation, Human: violation, Agreement: true
+credit-compliance-backend  | Flag status: REMEDIATING, AI: violation, Human: violation, Agreement: true
+credit-compliance-backend  | Flag status: REMEDIATING, AI: violation, Human: violation, Agreement: true
+credit-compliance-backend  | Flag status: REMEDIATING, AI: violation, Human: violation, Agreement: true
+credit-compliance-backend  | Agreement count: 54 out of 60
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Closed flags count: 14
+credit-compliance-backend  | Original total count: 1566
+credit-compliance-backend  | Sum of byPublisher counts: 1566
+credit-compliance-backend  | byPublisher data: [
+credit-compliance-backend  |   {
+credit-compliance-backend  |     publisher_id: '1d244103-9c08-4445-8554-a43fe8c0a2fd',
+credit-compliance-backend  |     publisher_name: 'Continental.ky',
+credit-compliance-backend  |     count: 551n
+credit-compliance-backend  |   },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     publisher_id: '701c863c-fc57-4c4a-9e3a-15418f60b046',
+credit-compliance-backend  |     publisher_name: 'Pointsdadtravels',
+credit-compliance-backend  |     count: 208n
+credit-compliance-backend  |   },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     publisher_id: '26cd3bee-34ab-4153-92bf-2f682101dc8c',
+credit-compliance-backend  |     publisher_name: 'Dinkswithadog',
+credit-compliance-backend  |     count: 174n
+credit-compliance-backend  |   },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     publisher_id: 'ac903101-b18a-4620-a029-6006e754a5e0',
+credit-compliance-backend  |     publisher_name: 'Everydaytravelhacker',
+credit-compliance-backend  |     count: 121n
+credit-compliance-backend  |   },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     publisher_id: 'c2daad0f-2aad-4472-b999-285a97fdf191',
+credit-compliance-backend  |     publisher_name: 'Daniel Braun',
+credit-compliance-backend  |     count: 100n
+credit-compliance-backend  |   },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     publisher_id: 'b04fb6c1-74fd-43aa-a4a8-3a9fd3df09cc',
+credit-compliance-backend  |     publisher_name: 'John Liang',
+credit-compliance-backend  |     count: 95n
+credit-compliance-backend  |   },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     publisher_id: '9a1fa11f-2b30-4646-89a4-65e0d73ef758',
+credit-compliance-backend  |     publisher_name: 'Mark Reese',
+credit-compliance-backend  |     count: 82n
+credit-compliance-backend  |   },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     publisher_id: '7bb97fc3-e550-4998-85ca-8a7d5499bf9c',
+credit-compliance-backend  |     publisher_name: 'Spencer Johnson',
+credit-compliance-backend  |     count: 79n
+credit-compliance-backend  |   },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     publisher_id: '62fe5de6-dc5b-4c4b-8f1f-dbbcdf91ee08',
+credit-compliance-backend  |     publisher_name: 'Travelmomsquad',
+credit-compliance-backend  |     count: 51n
+credit-compliance-backend  |   },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     publisher_id: '03c777c4-1b55-427b-b2e4-0e409191fdf3',
+credit-compliance-backend  |     publisher_name: 'Sethsrandomtips',
+credit-compliance-backend  |     count: 35n
+credit-compliance-backend  |   },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     publisher_id: '9fe49aa4-1d95-4a35-8a8d-2aaee0f44a15',
+credit-compliance-backend  |     publisher_name: 'Upgraded Points',
+credit-compliance-backend  |     count: 27n
+credit-compliance-backend  |   },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     publisher_id: '7ed6070f-8b76-4c27-a131-64450732ad3f',
+credit-compliance-backend  |     publisher_name: '10xTravel',
+credit-compliance-backend  |     count: 13n
+credit-compliance-backend  |   },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     publisher_id: '9e0c0f13-d3d6-4bf8-ac6b-883c75d1870f',
+credit-compliance-backend  |     publisher_name: 'Aunt Kara',
+credit-compliance-backend  |     count: 13n
+credit-compliance-backend  |   },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     publisher_id: '7d4ade06-fbaf-4a93-a76f-32eea6c0484b',
+credit-compliance-backend  |     publisher_name: 'Max Miles Points',
+credit-compliance-backend  |     count: 12n
+credit-compliance-backend  |   },
+credit-compliance-backend  |   {
+credit-compliance-backend  |     publisher_id: '3519e2b6-0522-46fd-8759-d441dcf4139b',
+credit-compliance-backend  |     publisher_name: 'LWP',
+credit-compliance-backend  |     count: 5n
+credit-compliance-backend  |   }
+credit-compliance-backend  | ]
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | GET /scan-jobs received with query params: [Object: null prototype] {
+credit-compliance-backend  |   activeFlagsOnly: 'true',
+credit-compliance-backend  |   limit: '20',
+credit-compliance-backend  |   _t: '1746810968353'
+credit-compliance-backend  | }
+credit-compliance-backend  | Calling scanJobService.getScanJobs with: {
+credit-compliance-backend  |   where: { has_active_flags: true },
+credit-compliance-backend  |   limitNum: 20,
+credit-compliance-backend  |   offsetNum: undefined
+credit-compliance-backend  | }
+credit-compliance-backend  | getScanJobs service called with params: { where: { has_active_flags: true }, limit: 20, offset: undefined }
+credit-compliance-backend  | Finding scan jobs with where: {"has_active_flags":true}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Enriched job 32e85572-3f5a-4e41-8748-bc01b74780a2 with counts: {
+credit-compliance-backend  |   items_count: 50,
+credit-compliance-backend  |   total_flags: 199,
+credit-compliance-backend  |   pending_flags: 197,
+credit-compliance-backend  |   closed_flags: 1,
+credit-compliance-backend  |   assignee_name: undefined
+credit-compliance-backend  | }
+credit-compliance-backend  | Enriched job 2d8ad528-a1b1-40f1-b22d-d5278e4af6a7 with counts: {
+credit-compliance-backend  |   items_count: 18,
+credit-compliance-backend  |   total_flags: 21,
+credit-compliance-backend  |   pending_flags: 21,
+credit-compliance-backend  |   closed_flags: 0,
+credit-compliance-backend  |   assignee_name: 'tcormier321@gmail.com'
+credit-compliance-backend  | }
+credit-compliance-backend  | Enriched job eabc93b8-678e-4b90-8a4c-088be1bd8d88 with counts: {
+credit-compliance-backend  |   items_count: 788,
+credit-compliance-backend  |   total_flags: 1259,
+credit-compliance-backend  |   pending_flags: 1259,
+credit-compliance-backend  |   closed_flags: 0,
+credit-compliance-backend  |   assignee_name: 'tcormier321@gmail.com'
+credit-compliance-backend  | }
+credit-compliance-backend  | Enriched job daf653c2-cd19-4d7c-8a49-f9318c1f5581 with counts: {
+credit-compliance-backend  |   items_count: 18,
+credit-compliance-backend  |   total_flags: 42,
+credit-compliance-backend  |   pending_flags: 42,
+credit-compliance-backend  |   closed_flags: 0,
+credit-compliance-backend  |   assignee_name: undefined
+credit-compliance-backend  | }
+credit-compliance-backend  | Enriched job bd1bad3e-265e-48af-bc7b-f9bb15952f6a with counts: {
+credit-compliance-backend  |   items_count: 18,
+credit-compliance-backend  |   total_flags: 78,
+credit-compliance-backend  |   pending_flags: 78,
+credit-compliance-backend  |   closed_flags: 0,
+credit-compliance-backend  |   assignee_name: undefined
+credit-compliance-backend  | }
+credit-compliance-backend  | Enriched job 3152a499-4d60-4cc2-ba8c-967c135a22c6 with counts: {
+credit-compliance-backend  |   items_count: 15,
+credit-compliance-backend  |   total_flags: 59,
+credit-compliance-backend  |   pending_flags: 59,
+credit-compliance-backend  |   closed_flags: 0,
+credit-compliance-backend  |   assignee_name: undefined
+credit-compliance-backend  | }
+credit-compliance-backend  | Enriched job 80a82e30-14dd-478e-9c81-2ee91a8f52dc with counts: {
+credit-compliance-backend  |   items_count: 6,
+credit-compliance-backend  |   total_flags: 31,
+credit-compliance-backend  |   pending_flags: 16,
+credit-compliance-backend  |   closed_flags: 8,
+credit-compliance-backend  |   assignee_name: undefined
+credit-compliance-backend  | }
+credit-compliance-backend  | Enriched job 95248f44-80a0-469b-8a16-bf67e61c6fe9 with counts: {
+credit-compliance-backend  |   items_count: 50,
+credit-compliance-backend  |   total_flags: 33,
+credit-compliance-backend  |   pending_flags: 33,
+credit-compliance-backend  |   closed_flags: 0,
+credit-compliance-backend  |   assignee_name: undefined
+credit-compliance-backend  | }
+credit-compliance-backend  | Enriched job 5440bde7-3c9b-4e78-b719-6f76020b50dd with counts: {
+credit-compliance-backend  |   items_count: 3,
+credit-compliance-backend  |   total_flags: 43,
+credit-compliance-backend  |   pending_flags: 0,
+credit-compliance-backend  |   closed_flags: 5,
+credit-compliance-backend  |   assignee_name: undefined
+credit-compliance-backend  | }
+credit-compliance-backend  | Retrieved 9 scan jobs
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | GET /scan-jobs received with query params: [Object: null prototype] {
+credit-compliance-backend  |   activeFlagsOnly: 'true',
+credit-compliance-backend  |   limit: '20',
+credit-compliance-backend  |   _t: '1746811443879'
+credit-compliance-backend  | }
+credit-compliance-backend  | Calling scanJobService.getScanJobs with: {
+credit-compliance-backend  |   where: { has_active_flags: true },
+credit-compliance-backend  |   limitNum: 20,
+credit-compliance-backend  |   offsetNum: undefined
+credit-compliance-backend  | }
+credit-compliance-backend  | getScanJobs service called with params: { where: { has_active_flags: true }, limit: 20, offset: undefined }
+credit-compliance-backend  | Finding scan jobs with where: {"has_active_flags":true}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Enriched job 32e85572-3f5a-4e41-8748-bc01b74780a2 with counts: {
+credit-compliance-backend  |   items_count: 50,
+credit-compliance-backend  |   total_flags: 199,
+credit-compliance-backend  |   pending_flags: 197,
+credit-compliance-backend  |   closed_flags: 1,
+credit-compliance-backend  |   assignee_name: undefined
+credit-compliance-backend  | }
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Enriched job 95248f44-80a0-469b-8a16-bf67e61c6fe9 with counts: {
+credit-compliance-backend  |   items_count: 50,
+credit-compliance-backend  |   total_flags: 33,
+credit-compliance-backend  |   pending_flags: 33,
+credit-compliance-backend  |   closed_flags: 0,
+credit-compliance-backend  |   assignee_name: undefined
+credit-compliance-backend  | }
+credit-compliance-backend  | Enriched job eabc93b8-678e-4b90-8a4c-088be1bd8d88 with counts: {
+credit-compliance-backend  |   items_count: 788,
+credit-compliance-backend  |   total_flags: 1259,
+credit-compliance-backend  |   pending_flags: 1259,
+credit-compliance-backend  |   closed_flags: 0,
+credit-compliance-backend  |   assignee_name: 'tcormier321@gmail.com'
+credit-compliance-backend  | }
+credit-compliance-backend  | Enriched job 5440bde7-3c9b-4e78-b719-6f76020b50dd with counts: {
+credit-compliance-backend  |   items_count: 3,
+credit-compliance-backend  |   total_flags: 43,
+credit-compliance-backend  |   pending_flags: 0,
+credit-compliance-backend  |   closed_flags: 5,
+credit-compliance-backend  |   assignee_name: undefined
+credit-compliance-backend  | }
+credit-compliance-backend  | Enriched job 80a82e30-14dd-478e-9c81-2ee91a8f52dc with counts: {
+credit-compliance-backend  |   items_count: 6,
+credit-compliance-backend  |   total_flags: 31,
+credit-compliance-backend  |   pending_flags: 16,
+credit-compliance-backend  |   closed_flags: 8,
+credit-compliance-backend  |   assignee_name: undefined
+credit-compliance-backend  | }
+credit-compliance-backend  | Enriched job 2d8ad528-a1b1-40f1-b22d-d5278e4af6a7 with counts: {
+credit-compliance-backend  |   items_count: 18,
+credit-compliance-backend  |   total_flags: 21,
+credit-compliance-backend  |   pending_flags: 21,
+credit-compliance-backend  |   closed_flags: 0,
+credit-compliance-backend  |   assignee_name: 'tcormier321@gmail.com'
+credit-compliance-backend  | }
+credit-compliance-backend  | Enriched job daf653c2-cd19-4d7c-8a49-f9318c1f5581 with counts: {
+credit-compliance-backend  |   items_count: 18,
+credit-compliance-backend  |   total_flags: 42,
+credit-compliance-backend  |   pending_flags: 42,
+credit-compliance-backend  |   closed_flags: 0,
+credit-compliance-backend  |   assignee_name: undefined
+credit-compliance-backend  | }
+credit-compliance-backend  | Enriched job bd1bad3e-265e-48af-bc7b-f9bb15952f6a with counts: {
+credit-compliance-backend  |   items_count: 18,
+credit-compliance-backend  |   total_flags: 78,
+credit-compliance-backend  |   pending_flags: 78,
+credit-compliance-backend  |   closed_flags: 0,
+credit-compliance-backend  |   assignee_name: undefined
+credit-compliance-backend  | }
+credit-compliance-backend  | Enriched job 3152a499-4d60-4cc2-ba8c-967c135a22c6 with counts: {
+credit-compliance-backend  |   items_count: 15,
+credit-compliance-backend  |   total_flags: 59,
+credit-compliance-backend  |   pending_flags: 59,
+credit-compliance-backend  |   closed_flags: 0,
+credit-compliance-backend  |   assignee_name: undefined
+credit-compliance-backend  | }
+credit-compliance-backend  | Retrieved 9 scan jobs
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Full decoded token payload: {"userId":"2f5191eb-bf6e-4a3d-a921-2d9d2fea0eee","email":"travis@10xtravel.com","role":"ADMIN","organizationId":"06e22f93-b541-4d1f-ae8a-0e8fed1b442d","iat":1746810966,"exp":1746814566}
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...
+credit-compliance-backend  | Monitoring active scan runs...

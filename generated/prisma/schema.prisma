@@ -1,0 +1,712 @@
+generator client {
+  provider      = "prisma-client-js"
+  output        = "../generated/prisma"
+  binaryTargets = ["native", "linux-arm64-openssl-3.0.x", "debian-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model ai_feedback_examples {
+  id                       String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  content_snippet          String
+  rule_id                  String          @db.Uuid
+  ai_verdict               Boolean
+  human_verdict            Boolean
+  confidence_score         Decimal         @db.Decimal(5, 2)
+  is_correct               Boolean
+  tags                     Json?           @default("[]")
+  content_item_id          String?         @db.Uuid
+  reviewer_id              String?         @db.Uuid
+  image_reference_id       String?         @db.Uuid
+  selection_reason         String?
+  is_selected_for_training Boolean         @default(false)
+  original_flag_source     String?         @db.VarChar(50)
+  is_current               Boolean         @default(true)
+  obsolescence_reason      String?
+  obsolescence_date        DateTime?       @db.Timestamp(6)
+  created_at               DateTime        @default(now()) @db.Timestamp(6)
+  updated_at               DateTime        @default(now()) @db.Timestamp(6)
+  rule_type                String          @db.VarChar(50)
+  content_items            content_items?  @relation(fields: [content_item_id], references: [id], onUpdate: NoAction)
+  content_images           content_images? @relation(fields: [image_reference_id], references: [id], onUpdate: NoAction)
+  users                    users?          @relation(fields: [reviewer_id], references: [id], onUpdate: NoAction)
+
+  @@index([content_item_id], map: "ai_feedback_examples_content_item_id_index")
+  @@index([is_correct], map: "ai_feedback_examples_is_correct_index")
+  @@index([is_current], map: "ai_feedback_examples_is_current_index")
+  @@index([is_selected_for_training], map: "ai_feedback_examples_is_selected_for_training_index")
+  @@index([reviewer_id], map: "ai_feedback_examples_reviewer_id_index")
+  @@index([rule_id], map: "ai_feedback_examples_rule_id_index")
+}
+
+model audit_logs {
+  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  action     String   @db.VarChar(255)
+  details    Json
+  user_id    String?  @db.Uuid
+  created_at DateTime @default(now()) @db.Timestamp(6)
+  users      users?   @relation(fields: [user_id], references: [id], onUpdate: NoAction)
+
+  // --- New field for linking actions to settings ---
+  triggering_event_log_id String? @db.Uuid // Links flag update log to the settings change log
+
+  @@index([action], map: "audit_logs_action_index")
+  @@index([created_at], map: "audit_logs_created_at_index")
+  @@index([user_id], map: "audit_logs_user_id_index")
+  @@index([triggering_event_log_id]) // Added index
+}
+
+model content_images {
+  id                   String                 @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  content_item_id      String                 @db.Uuid
+  image_type           String                 @db.VarChar(50)
+  file_path            String                 @db.VarChar(255)
+  file_size            BigInt
+  width                Int?
+  height               Int?
+  created_at           DateTime               @default(now()) @db.Timestamp(6)
+  captured_at          DateTime?              @db.Timestamp(6)
+  sha256               String?                @db.Char(64)
+  ai_feedback_examples ai_feedback_examples[]
+  content_items        content_items          @relation(fields: [content_item_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  flags                flags[]
+
+  @@index([content_item_id], map: "content_images_content_item_id_index")
+  @@index([sha256], map: "content_images_sha256_index")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model content_items {
+  id                   String                 @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  scan_job_id          String                 @db.Uuid
+  publisher_id         String                 @db.Uuid
+  publisher_channel_id String                 @db.Uuid
+  platform             String                 @db.VarChar(50)
+  channel_url          String                 @db.VarChar(255)
+  url                  String                 @db.VarChar(255)
+  content_type         String                 @db.VarChar(50)
+  scan_date            DateTime               @db.Timestamp(6)
+  created_at           DateTime               @default(now()) @db.Timestamp(6)
+  updated_at           DateTime               @default(now()) @db.Timestamp(6)
+  raw_data             Json?
+  caption              String?
+  title                String?
+  transcript           Json?
+  ai_feedback_examples ai_feedback_examples[]
+  files                content_files[]
+  content_images       content_images[]
+  publishers           publishers             @relation(fields: [publisher_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "content_items_affiliate_id_fkey")
+  publisher_channels   publisher_channels     @relation(fields: [publisher_channel_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "content_items_channel_id_fkey")
+  scan_jobs            scan_jobs              @relation(fields: [scan_job_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  flags                flags[]
+
+  @@index([publisher_id], map: "content_items_affiliate_id_index")
+  @@index([publisher_channel_id], map: "content_items_channel_id_index")
+  @@index([content_type], map: "content_items_content_type_index")
+  @@index([platform], map: "content_items_platform_index")
+  @@index([scan_date], map: "content_items_scan_date_index")
+  @@index([scan_job_id], map: "content_items_scan_job_id_index")
+}
+
+model content_files {
+  id            String        @id @default(uuid()) @db.Uuid
+  contentItemId String        @db.Uuid
+  version       Int           @default(1)
+  state         String        @db.VarChar(20)
+  fileType      String        @db.VarChar(20)
+  filePath      String        @db.VarChar(255)
+  sha256        String        @db.Char(64)
+  createdAt     DateTime      @default(now())
+  content_items content_items @relation(fields: [contentItemId], references: [id], onDelete: Cascade)
+
+  @@index([contentItemId])
+  @@index([contentItemId, version])
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model flags {
+  id                          String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  content_item_id             String            @db.Uuid
+  rule_id                     String            @db.Uuid
+  ai_confidence               Decimal           @db.Decimal(5, 2)
+  reviewer_id                 String?           @db.Uuid
+  rule_citation               String?
+  rule_section                String?           @db.VarChar(255)
+  context_text                String?
+  context_start_index         Int?
+  context_end_index           Int?
+  image_reference_id          String?           @db.Uuid
+  flag_source                 String            @default("ai") @db.VarChar(50)
+  created_at                  DateTime          @default(now()) @db.Timestamp(6)
+  updated_at                  DateTime          @updatedAt @db.Timestamp(6)
+  rule_type                   String            @db.VarChar(50)
+  ai_evaluation               String?
+  product_id                  String?           @db.Uuid
+  ai_confidence_reasoning     String?
+  ai_ruling                   String?           @db.VarChar(50)
+  ai_feedback_notes           String?
+  decision_made_at            DateTime?         @db.Timestamp(6)
+  human_verdict               HumanVerdict?
+  human_verdict_reasoning     String?
+  in_review_at                DateTime?         @db.Timestamp(6)
+  internal_notes              String?
+  remediation_completed_at    DateTime?         @db.Timestamp(6)
+  reviewed_at                 DateTime?         @db.Timestamp(6)
+  status                      FlagStatus        @default(PENDING)
+  example_selection_reason    String?
+  is_learning_example         Boolean           @default(false)
+  rule_version_applied        String?           @db.VarChar(50)
+  librarian_consulted         Boolean           @default(false)
+  librarian_examples_provided Boolean           @default(false)
+  resolution_method           ResolutionMethod?
+  content_source              String            @db.VarChar(50)
+  transcript_end_ms           Int?
+  transcript_start_ms         Int?
+  visual_location             String?
+  remediation_start_time      DateTime?         @db.Timestamp(6)
+  comments                    flag_comments[]
+  content_items               content_items     @relation(fields: [content_item_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  content_images              content_images?   @relation(fields: [image_reference_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  products                    products?         @relation(fields: [product_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users                       users?            @relation(fields: [reviewer_id], references: [id], onUpdate: NoAction)
+
+  @@index([ai_confidence], map: "flags_ai_confidence_index")
+  @@index([content_item_id], map: "flags_content_item_id_index")
+  @@index([product_id], map: "flags_product_id_index")
+  @@index([flag_source], map: "flags_flag_source_index")
+  @@index([reviewer_id], map: "flags_reviewer_id_index")
+  @@index([rule_id], map: "flags_rule_id_index")
+  @@index([status], map: "flags_status_index")
+  @@index([human_verdict], map: "flags_human_verdict_index")
+  @@index([resolution_method], map: "flags_resolution_method_index")
+  @@index([content_source], map: "flags_content_source_index")
+  @@index([created_at], map: "flags_created_at_index")
+}
+
+model guideline_documents {
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  rule_id     String   @db.Uuid
+  file_name   String   @db.VarChar(255)
+  file_path   String   @db.VarChar(255)
+  file_type   String   @db.VarChar(50)
+  file_size   BigInt
+  version     String   @db.VarChar(50)
+  upload_date DateTime @default(now()) @db.Timestamp(6)
+  uploaded_by String?  @db.Uuid
+  rule_type   String   @db.VarChar(50)
+  users       users?   @relation(fields: [uploaded_by], references: [id], onUpdate: NoAction)
+
+  @@index([rule_id], map: "guideline_documents_rule_id_index")
+  @@index([uploaded_by], map: "guideline_documents_uploaded_by_index")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model organizations {
+  id                      String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name                    String        @db.VarChar(255)
+  settings                Json?         @default("{}")
+  auto_approval_threshold Decimal?      @db.Decimal(5, 2)
+  auto_approval_action    String?       @default("pending_remediation") @db.VarChar(50)
+  created_at              DateTime      @default(now()) @db.Timestamp(6)
+  updated_at              DateTime      @default(now()) @db.Timestamp(6)
+  advertisers             advertisers[]
+  publishers              publishers[]
+  users                   users[]
+
+  // --- Fields for AI Bypass (auto_approval_threshold already existed) ---
+  auto_approve_compliant_enabled   Boolean? @default(false) // Enable auto-close for compliant flags?
+  auto_remediate_violation_enabled Boolean? @default(false) // Enable auto-remediate for violation flags?
+}
+
+model pgmigrations {
+  id     Int      @id @default(autoincrement())
+  name   String   @db.VarChar(255)
+  run_on DateTime @db.Timestamp(6)
+}
+
+model product_rule_sets {
+  id              String        @id(map: "rule_set_rules_pkey") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  rule_set_id     String        @db.Uuid
+  product_rule_id String        @db.Uuid
+  created_at      DateTime      @default(now()) @db.Timestamp(6)
+  product_rules   product_rules @relation(fields: [product_rule_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  rule_sets       rule_sets     @relation(fields: [rule_set_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "rule_set_rules_rule_set_id_fkey")
+
+  @@unique([rule_set_id, product_rule_id], map: "rule_set_rules_unique")
+  @@index([product_rule_id], map: "rule_set_rules_rule_id_index")
+  @@index([rule_set_id], map: "rule_set_rules_rule_set_id_index")
+}
+
+model product_rules {
+  id                     String                   @id(map: "rules_pkey") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name                   String                   @db.VarChar(255)
+  description            String
+  rule_type              String                   @db.VarChar(50)
+  manual_text            String?
+  version                String                   @db.VarChar(50)
+  created_at             DateTime                 @default(now()) @db.Timestamp(6)
+  updated_at             DateTime                 @default(now()) @db.Timestamp(6)
+  advertiser_id          String                   @db.Uuid
+  bypass_threshold       Decimal?                 @db.Decimal(3, 2)
+  product_rule_overrides product_rule_overrides[]
+  product_rule_sets      product_rule_sets[]
+  advertisers            advertisers              @relation(fields: [advertiser_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([advertiser_id], map: "product_rules_advertiser_id_index")
+  @@index([version], map: "rules_version_index")
+}
+
+model products {
+  id                             String                           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name                           String                           @db.VarChar(255)
+  primary_issuer                 String?                          @db.VarChar(255)
+  fee                            Decimal?                         @db.Decimal(10, 2)
+  marketing_bullets              Json?                            @default("[]")
+  last_scan_date                 DateTime?                        @db.Timestamp(6)
+  last_scan_job_id               String?                          @db.Uuid
+  created_at                     DateTime                         @default(now()) @db.Timestamp(6)
+  updated_at                     DateTime                         @default(now()) @db.Timestamp(6)
+  advertiser_id                  String                           @db.Uuid
+  flags                          flags[]
+  product_channel_rule_overrides product_channel_rule_overrides[]
+  product_rule_overrides         product_rule_overrides[]
+  product_rule_set_assignments   product_rule_set_assignments[]
+  advertisers                    advertisers                      @relation(fields: [advertiser_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  scan_jobs                      scan_jobs?                       @relation(fields: [last_scan_job_id], references: [id], onUpdate: NoAction)
+  publisher_products             publisher_products[]
+  rule_violation_stats           rule_violation_stats[]
+  scan_job_product_focus         scan_job_product_focus[]
+
+  @@index([name], map: "products_name_index")
+  @@index([primary_issuer], map: "products_primary_issuer_index")
+  @@index([advertiser_id], map: "products_advertiser_id_index")
+}
+
+model rule_sets {
+  id                                                             String                         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name                                                           String                         @db.VarChar(255)
+  description                                                    String?
+  is_global                                                      Boolean                        @default(false)
+  created_at                                                     DateTime                       @default(now()) @db.Timestamp(6)
+  updated_at                                                     DateTime                       @default(now()) @db.Timestamp(6)
+  advertiser_id                                                  String                         @db.Uuid
+  set_type                                                       String                         @db.VarChar(50)
+  is_default                                                     Boolean                        @default(false)
+  advertisers_advertisers_default_channel_rule_set_idTorule_sets advertisers[]                  @relation("advertisers_default_channel_rule_set_idTorule_sets")
+  advertisers_advertisers_default_product_rule_set_idTorule_sets advertisers[]                  @relation("advertisers_default_product_rule_set_idTorule_sets")
+  advertisers_advertisers_global_rule_set_idTorule_sets          advertisers[]                  @relation("advertisers_global_rule_set_idTorule_sets")
+  channel_rule_sets                                              channel_rule_sets[]
+  product_rule_set_assignments                                   product_rule_set_assignments[]
+  product_rule_sets                                              product_rule_sets[]
+  advertisers_rule_sets_advertiser_idToadvertisers               advertisers                    @relation("rule_sets_advertiser_idToadvertisers", fields: [advertiser_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([is_global], map: "rule_sets_is_global_index")
+  @@index([advertiser_id], map: "rule_sets_advertiser_id_index")
+  @@index([set_type], map: "rule_sets_set_type_index")
+}
+
+model rule_violation_stats {
+  id                String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  rule_id           String      @db.Uuid
+  issuer            String?     @db.VarChar(255)
+  product_id        String?     @db.Uuid
+  publisher_id      String?     @db.Uuid
+  time_period       String      @db.VarChar(50)
+  period_start_date DateTime    @db.Date
+  period_end_date   DateTime    @db.Date
+  content_count     Int         @default(0)
+  violation_count   Int         @default(0)
+  violation_rate    Decimal     @default(0) @db.Decimal(5, 2)
+  created_at        DateTime    @default(now()) @db.Timestamp(6)
+  updated_at        DateTime    @default(now()) @db.Timestamp(6)
+  rule_type         String      @db.VarChar(50)
+  publishers        publishers? @relation(fields: [publisher_id], references: [id], onUpdate: NoAction, map: "rule_violation_stats_affiliate_id_fkey")
+  products          products?   @relation(fields: [product_id], references: [id], onUpdate: NoAction)
+
+  @@index([publisher_id], map: "rule_violation_stats_affiliate_id_index")
+  @@index([issuer], map: "rule_violation_stats_issuer_index")
+  @@index([product_id], map: "rule_violation_stats_product_id_index")
+  @@index([rule_id], map: "rule_violation_stats_rule_id_index")
+  @@index([time_period, period_start_date], map: "rule_violation_stats_time_period_period_start_date_index")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model scan_job_channels {
+  id           String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  scan_job_id  String      @db.Uuid
+  platform     String      @db.VarChar(50)
+  channel_url  String      @db.VarChar(255)
+  publisher_id String?     @db.Uuid
+  created_at   DateTime    @default(now()) @db.Timestamp(6)
+  publishers   publishers? @relation(fields: [publisher_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "scan_job_channels_affiliate_id_fkey")
+  scan_jobs    scan_jobs   @relation(fields: [scan_job_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([publisher_id], map: "scan_job_channels_affiliate_id_index")
+  @@index([platform], map: "scan_job_channels_platform_index")
+  @@index([scan_job_id], map: "scan_job_channels_scan_job_id_index")
+}
+
+model scan_job_product_focus {
+  id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  scan_job_id String    @db.Uuid
+  product_id  String    @db.Uuid
+  created_at  DateTime  @default(now()) @db.Timestamp(6)
+  products    products  @relation(fields: [product_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  scan_jobs   scan_jobs @relation(fields: [scan_job_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([scan_job_id, product_id], map: "scan_job_product_focus_unique")
+  @@index([product_id], map: "scan_job_product_focus_product_id_index")
+  @@index([scan_job_id], map: "scan_job_product_focus_scan_job_id_index")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model scan_jobs {
+  id                     String                   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name                   String?                  @db.VarChar(255)
+  description            String?
+  status                 String                   @db.VarChar(50)
+  source                 String                   @db.VarChar(50)
+  scan_all_publishers    Boolean                  @default(false)
+  platform_filter        String?                  @db.VarChar(50)
+  start_time             DateTime?                @db.Timestamp(6)
+  end_time               DateTime?                @db.Timestamp(6)
+  created_by             String?                  @db.Uuid
+  created_at             DateTime                 @default(now()) @db.Timestamp(6)
+  updated_at             DateTime                 @default(now()) @db.Timestamp(6)
+  advertiser_id          String?                  @db.Uuid
+  has_active_flags       Boolean                  @default(false)
+  assignee_id            String?                  @db.Uuid
+  content_items          content_items[]
+  products               products[]
+  publishers             publishers[]
+  scan_job_channels      scan_job_channels[]
+  scan_job_product_focus scan_job_product_focus[]
+  scan_job_publishers    scan_job_publishers[]
+  scan_job_runs          scan_job_runs[]
+  advertisers            advertisers?             @relation(fields: [advertiser_id], references: [id], onUpdate: NoAction)
+  assignee               users?                   @relation("ScanJobAssignee", fields: [assignee_id], references: [id], onUpdate: NoAction)
+  creator                users?                   @relation("ScanJobCreator", fields: [created_by], references: [id], onUpdate: NoAction)
+
+  // --- New field for AI Bypass Override ---
+  bypass_ai_processing Boolean @default(false) // If true, worker skips this job
+
+  @@index([advertiser_id])
+  @@index([created_by], map: "scan_jobs_created_by_index")
+  @@index([assignee_id], map: "scan_jobs_assignee_id_index")
+  @@index([source], map: "scan_jobs_source_index")
+  @@index([start_time], map: "scan_jobs_start_time_index")
+  @@index([status], map: "scan_jobs_status_index")
+  @@index([has_active_flags], map: "scan_jobs_has_active_flags_index")
+}
+
+model scan_job_runs {
+  id                   String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  scan_job_id          String             @db.Uuid
+  publisher_channel_id String             @db.Uuid
+  apify_actor_id       String             @db.VarChar(255)
+  apify_run_id         String             @unique @db.VarChar(255)
+  status               String             @default("STARTED") @db.VarChar(50)
+  input_payload        Json?
+  run_started_at       DateTime           @default(now()) @db.Timestamp(6)
+  run_finished_at      DateTime?          @db.Timestamp(6)
+  created_at           DateTime           @default(now()) @db.Timestamp(6)
+  updated_at           DateTime           @default(now()) @db.Timestamp(6)
+  status_details       String?
+  publisher_channels   publisher_channels @relation(fields: [publisher_channel_id], references: [id], onDelete: Cascade)
+  scan_jobs            scan_jobs          @relation(fields: [scan_job_id], references: [id], onDelete: Cascade)
+
+  @@index([scan_job_id])
+  @@index([publisher_channel_id])
+  @@index([apify_run_id])
+  @@index([status])
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model users {
+  id                   String                 @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  organization_id      String                 @db.Uuid
+  email                String                 @unique @db.VarChar(255)
+  name                 String                 @db.VarChar(255)
+  password_hash        String                 @db.VarChar(255)
+  role                 String                 @db.VarChar(50)
+  settings             Json?                  @default("{}")
+  last_login           DateTime?              @db.Timestamp(6)
+  created_at           DateTime               @default(now()) @db.Timestamp(6)
+  updated_at           DateTime               @default(now()) @db.Timestamp(6)
+  publisher_id         String?                @db.Uuid
+  ai_feedback_examples ai_feedback_examples[]
+  audit_logs           audit_logs[]
+  flag_comments        flag_comments[]
+  flags                flags[]
+  guideline_documents  guideline_documents[]
+  assigned_scan_jobs   scan_jobs[]            @relation("ScanJobAssignee")
+  created_scan_jobs    scan_jobs[]            @relation("ScanJobCreator")
+  organizations        organizations          @relation(fields: [organization_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  publisher            publishers?            @relation(fields: [publisher_id], references: [id], onUpdate: NoAction)
+
+  @@index([email], map: "users_email_index")
+  @@index([organization_id], map: "users_organization_id_index")
+  @@index([publisher_id])
+  @@index([role], map: "users_role_index")
+}
+
+model advertisers {
+  id                                                           String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  organization_id                                              String          @db.Uuid
+  name                                                         String          @db.VarChar(255)
+  settings                                                     Json?           @default("{}")
+  created_at                                                   DateTime        @default(now()) @db.Timestamp(6)
+  updated_at                                                   DateTime        @default(now()) @db.Timestamp(6)
+  default_product_rule_set_id                                  String?         @db.Uuid
+  default_channel_rule_set_id                                  String?         @db.Uuid
+  global_rule_set_id                                           String?         @db.Uuid
+  rule_sets_advertisers_default_channel_rule_set_idTorule_sets rule_sets?      @relation("advertisers_default_channel_rule_set_idTorule_sets", fields: [default_channel_rule_set_id], references: [id], onUpdate: NoAction)
+  rule_sets_advertisers_default_product_rule_set_idTorule_sets rule_sets?      @relation("advertisers_default_product_rule_set_idTorule_sets", fields: [default_product_rule_set_id], references: [id], onUpdate: NoAction)
+  rule_sets_advertisers_global_rule_set_idTorule_sets          rule_sets?      @relation("advertisers_global_rule_set_idTorule_sets", fields: [global_rule_set_id], references: [id], onUpdate: NoAction)
+  organizations                                                organizations   @relation(fields: [organization_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  channel_rules                                                channel_rules[]
+  product_rules                                                product_rules[]
+  products                                                     products[]
+  rule_sets_rule_sets_advertiser_idToadvertisers               rule_sets[]     @relation("rule_sets_advertiser_idToadvertisers")
+  scan_jobs                                                    scan_jobs[]
+
+  @@index([organization_id], map: "advertisers_organization_id_index")
+}
+
+model channel_rule_sets {
+  id              String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  rule_set_id     String        @db.Uuid
+  channel_rule_id String        @db.Uuid
+  created_at      DateTime      @default(now()) @db.Timestamp(6)
+  channel_rules   channel_rules @relation(fields: [channel_rule_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  rule_sets       rule_sets     @relation(fields: [rule_set_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([rule_set_id, channel_rule_id], map: "channel_rule_sets_unique")
+  @@index([channel_rule_id], map: "channel_rule_sets_channel_rule_id_index")
+  @@index([rule_set_id], map: "channel_rule_sets_rule_set_id_index")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model channel_rules {
+  id                             String                           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  advertiser_id                  String                           @db.Uuid
+  name                           String                           @db.VarChar(255)
+  description                    String
+  rule_type                      String                           @db.VarChar(50)
+  manual_text                    String?
+  applicable_issuer              String?                          @db.VarChar(255)
+  version                        String                           @db.VarChar(50)
+  created_at                     DateTime                         @default(now()) @db.Timestamp(6)
+  updated_at                     DateTime                         @default(now()) @db.Timestamp(6)
+  bypass_threshold               Decimal?                         @db.Decimal(3, 2)
+  applicable_channel             String[]                         @db.VarChar(50)
+  channel_rule_sets              channel_rule_sets[]
+  advertisers                    advertisers                      @relation(fields: [advertiser_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  product_channel_rule_overrides product_channel_rule_overrides[]
+
+  @@index([advertiser_id], map: "channel_rules_advertiser_id_index")
+  @@index([applicable_channel], map: "channel_rules_applicable_channel_index")
+  @@index([applicable_issuer], map: "channel_rules_applicable_issuer_index")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model product_channel_rule_overrides {
+  id              String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  product_id      String        @db.Uuid
+  channel_rule_id String        @db.Uuid
+  inclusion_type  String        @db.VarChar(10)
+  created_at      DateTime      @default(now()) @db.Timestamp(6)
+  channel_rules   channel_rules @relation(fields: [channel_rule_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  products        products      @relation(fields: [product_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([product_id, channel_rule_id], map: "product_channel_rule_overrides_unique")
+  @@index([channel_rule_id], map: "product_channel_rule_overrides_channel_rule_id_index")
+  @@index([product_id], map: "product_channel_rule_overrides_product_id_index")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model product_rule_overrides {
+  id              String        @id(map: "product_rules_pkey") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  product_id      String        @db.Uuid
+  product_rule_id String        @db.Uuid
+  created_at      DateTime      @default(now()) @db.Timestamp(6)
+  inclusion_type  String        @db.VarChar(10)
+  product_rules   product_rules @relation(fields: [product_rule_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  products        products      @relation(fields: [product_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "product_rules_product_id_fkey")
+
+  @@unique([product_id, product_rule_id], map: "product_rules_unique")
+  @@index([product_id], map: "product_rules_product_id_index")
+  @@index([product_rule_id], map: "product_rules_rule_id_index")
+}
+
+model product_rule_set_assignments {
+  id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  product_id  String    @db.Uuid
+  rule_set_id String    @db.Uuid
+  created_at  DateTime  @default(now()) @db.Timestamp(6)
+  products    products  @relation(fields: [product_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  rule_sets   rule_sets @relation(fields: [rule_set_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([product_id, rule_set_id], map: "product_rule_set_assignments_unique")
+  @@index([product_id], map: "product_rule_set_assignments_product_id_index")
+  @@index([rule_set_id], map: "product_rule_set_assignments_rule_set_id_index")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model publisher_channels {
+  id             String                     @id(map: "affiliate_channels_pkey") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  publisher_id   String                     @db.Uuid
+  platform       String                     @db.VarChar(50)
+  channel_url    String                     @db.VarChar(255)
+  status         String                     @db.VarChar(50)
+  added_date     DateTime                   @default(now()) @db.Timestamp(6)
+  last_scanned   DateTime?                  @db.Timestamp(6)
+  created_at     DateTime                   @default(now()) @db.Timestamp(6)
+  updated_at     DateTime                   @default(now()) @db.Timestamp(6)
+  apifyActorId   String?                    @db.VarChar(255)
+  content_items  content_items[]
+  website_config publisher_channel_configs?
+  publishers     publishers                 @relation(fields: [publisher_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "affiliate_channels_affiliate_id_fkey")
+  scan_job_runs  scan_job_runs[]
+
+  @@index([publisher_id], map: "affiliate_channels_affiliate_id_index")
+  @@index([platform], map: "affiliate_channels_platform_index")
+  @@index([apifyActorId], map: "publisher_channels_apify_actor_id_index")
+  @@index([status], map: "affiliate_channels_status_index")
+}
+
+model publisher_channel_configs {
+  id                     String             @id @default(uuid()) @db.Uuid
+  publisher_channel_id   String             @unique @db.Uuid
+  name                   String             @db.VarChar(255)
+  sitemapUrl             String?            @db.VarChar(255)
+  loginSecretId          String?            @db.VarChar(255)
+  includeDomains         String[]           @default([])
+  excludePatterns        String[]           @default([])
+  maxPages               Int?
+  maxDepth               Int?
+  imageMaxBytes          Int?
+  createdAt              DateTime           @default(now())
+  updatedAt              DateTime           @updatedAt
+  articleContentSelector String?            @map("article_content_selector")
+  heroImageSelector      String?            @map("hero_image_selector")
+  publisher_channel      publisher_channels @relation(fields: [publisher_channel_id], references: [id], onDelete: Cascade)
+
+  @@index([publisher_channel_id])
+}
+
+model publisher_products {
+  id           String     @id(map: "affiliate_products_pkey") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  publisher_id String     @db.Uuid
+  product_id   String     @db.Uuid
+  created_at   DateTime   @default(now()) @db.Timestamp(6)
+  publishers   publishers @relation(fields: [publisher_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "affiliate_products_affiliate_id_fkey")
+  products     products   @relation(fields: [product_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "affiliate_products_product_id_fkey")
+
+  @@unique([publisher_id, product_id], map: "affiliate_products_unique")
+  @@index([publisher_id], map: "affiliate_products_affiliate_id_index")
+  @@index([product_id], map: "affiliate_products_product_id_index")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model publishers {
+  id                   String                 @id(map: "affiliates_pkey") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  organization_id      String                 @db.Uuid
+  name                 String                 @db.VarChar(255)
+  status               String                 @db.VarChar(50)
+  contact_info         Json                   @default("{}")
+  last_scan_date       DateTime?              @db.Timestamp(6)
+  last_scan_job_id     String?                @db.Uuid
+  created_at           DateTime               @default(now()) @db.Timestamp(6)
+  updated_at           DateTime               @default(now()) @db.Timestamp(6)
+  content_items        content_items[]
+  publisher_channels   publisher_channels[]
+  publisher_products   publisher_products[]
+  scan_jobs            scan_jobs?             @relation(fields: [last_scan_job_id], references: [id], onUpdate: NoAction, map: "affiliates_last_scan_job_id_fkey")
+  organizations        organizations          @relation(fields: [organization_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "affiliates_organization_id_fkey")
+  rule_violation_stats rule_violation_stats[]
+  scan_job_channels    scan_job_channels[]
+  scan_job_publishers  scan_job_publishers[]
+  users                users[]
+
+  @@index([name], map: "affiliates_name_index")
+  @@index([organization_id], map: "affiliates_organization_id_index")
+  @@index([status], map: "affiliates_status_index")
+}
+
+model scan_job_publishers {
+  id           String     @id(map: "scan_job_affiliates_pkey") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  scan_job_id  String     @db.Uuid
+  publisher_id String     @db.Uuid
+  created_at   DateTime   @default(now()) @db.Timestamp(6)
+  publishers   publishers @relation(fields: [publisher_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "scan_job_affiliates_affiliate_id_fkey")
+  scan_jobs    scan_jobs  @relation(fields: [scan_job_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "scan_job_affiliates_scan_job_id_fkey")
+
+  @@unique([scan_job_id, publisher_id], map: "scan_job_affiliates_unique")
+  @@index([publisher_id], map: "scan_job_affiliates_affiliate_id_index")
+  @@index([scan_job_id], map: "scan_job_affiliates_scan_job_id_index")
+}
+
+model ai_usage_logs {
+  id               String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  timestamp        DateTime @default(now()) @db.Timestamp(6)
+  service_name     String   @db.VarChar(100)
+  action_name      String   @db.VarChar(100)
+  model_name       String   @db.VarChar(100)
+  input_tokens     Int
+  output_tokens    Int
+  total_tokens     Int
+  latency_ms       Int?
+  cost             Decimal? @db.Decimal(10, 6)
+  status           String   @default("SUCCESS") @db.VarChar(50)
+  error_message    String?
+  related_context  Json?
+  correlation_id   String?  @db.Uuid
+  request_payload  String?
+  response_payload String?
+
+  @@index([correlation_id])
+  @@index([timestamp])
+  @@index([service_name])
+  @@index([action_name])
+  @@index([model_name])
+  @@index([status])
+}
+
+model flag_comments {
+  id         String   @id @default(uuid()) @db.Uuid
+  flag_id    String   @db.Uuid
+  user_id    String   @db.Uuid
+  comment    String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  flag       flags    @relation(fields: [flag_id], references: [id], onDelete: Cascade)
+  user       users    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@index([flag_id])
+  @@index([user_id])
+}
+
+enum FlagStatus {
+  PENDING
+  IN_REVIEW
+  REMEDIATING
+  CLOSED
+  REMEDIATION_COMPLETE
+}
+
+enum HumanVerdict {
+  VIOLATION
+  COMPLIANT
+  ERROR
+}
+
+enum ResolutionMethod {
+  AI_AUTO_REMEDIATE
+  AI_AUTO_CLOSE
+  HUMAN_REVIEW
+}

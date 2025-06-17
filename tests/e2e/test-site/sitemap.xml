@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>http://localhost:PORT/index.html</loc> <!-- Placeholder PORT -->
+    <lastmod>2024-05-04</lastmod>
+  </url>
+  <url>
+    <loc>http://localhost:PORT/page1.html</loc> <!-- Placeholder PORT -->
+  </url>
+  <!-- Intentionally exclude page2.html to test combined discovery -->
+</urlset>

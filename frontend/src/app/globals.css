@@ -1,0 +1,118 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base styles */
+@layer base {
+  body {
+    @apply bg-background text-text-primary font-sans leading-body;
+  }
+  h1 {
+    @apply text-h1 font-bold leading-heading mb-4;
+  }
+  h2 {
+    @apply text-h2 font-semibold leading-heading mb-3;
+  }
+  h3 {
+    @apply text-h3 font-semibold leading-heading mb-2;
+  }
+  p {
+    @apply text-body mb-4;
+  }
+  a {
+    @apply text-secondary hover:underline focus:outline-none focus:ring-2 focus:ring-secondary;
+  }
+}
+
+/* Component styles */
+@layer components {
+  /* Buttons */
+  .btn-primary {
+    @apply bg-secondary text-white px-6 py-3 rounded-btn font-semibold
+           hover:bg-opacity-90 transition-colors duration-200 
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  .btn-secondary {
+    @apply bg-transparent text-primary border border-primary px-6 py-3 
+           rounded-btn font-semibold hover:bg-primary hover:bg-opacity-10 
+           transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  .btn-tertiary {
+    @apply bg-transparent text-text-secondary px-4 py-2 rounded-btn
+           hover:text-text-primary transition-colors duration-200;
+  }
+  .btn-danger {
+    @apply bg-error text-white px-6 py-3 rounded-btn font-semibold 
+           hover:bg-opacity-90 transition-colors duration-200 
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  /* Form elements */
+  .input {
+    @apply bg-surface border border-neutral-light text-text-primary rounded-input px-3 py-2 
+           focus:outline-none focus:ring-2 focus:ring-secondary placeholder:text-neutral-gray; 
+  }
+  select.input { 
+    @apply appearance-none bg-surface border border-neutral-light text-text-primary rounded-input px-3 py-2 
+           focus:outline-none focus:ring-2 focus:ring-secondary;
+  }
+  textarea.input { 
+     @apply min-h-[80px];
+  }
+  .input-error {
+    @apply border-error;
+  }
+  .input-success {
+    @apply border-success;
+  }
+
+  /* Cards & panels */
+  .card {
+    @apply bg-surface border border-neutral-light rounded-card p-4 shadow-card;
+  }
+  .card-hover {
+    @apply hover:shadow-hover hover:-translate-y-0.5 transition-all duration-200;
+  }
+
+  /* Tables */
+  .table-container {
+    @apply rounded-card overflow-hidden border border-neutral-light;
+  }
+  .table-header {
+    @apply bg-background text-text-primary font-semibold text-sm py-2 px-3 uppercase tracking-wider; 
+  }
+  .table-row {
+    @apply bg-surface hover:bg-[#E9F7FF] transition-colors duration-150;
+  }
+  .table-row-alt {
+    @apply bg-[#FBFCFD] hover:bg-[#E9F7FF] transition-colors duration-150;
+  }
+  
+  /* Status indicators */
+  .status-pill {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+  .status-success {
+    @apply bg-success bg-opacity-10 text-success;
+  }
+  .status-warning {
+    @apply bg-warning bg-opacity-10 text-warning;
+  }
+  .status-error {
+    @apply bg-error bg-opacity-10 text-error;
+  }
+
+  /* Modals & drawers */
+  .modal-overlay {
+    @apply fixed inset-0 bg-black bg-opacity-60 z-40 flex items-center justify-center;
+  }
+  .modal-container {
+    @apply bg-surface rounded-card p-6 max-w-lg w-full shadow-lg z-50;
+  }
+  .modal-header {
+    @apply flex justify-between items-center mb-4;
+  }
+  .modal-footer {
+    @apply flex justify-end space-x-3 mt-6;
+  }
+}

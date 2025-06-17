@@ -1,0 +1,4 @@
+-- This migration was applied manually via db execute
+-- and this file was created to allow 'prisma migrate resolve --applied'.
+-- The actual SQL for adding updated_at to flag_comments is in
+-- prisma/update_flag_comments_add_updated_at.sql

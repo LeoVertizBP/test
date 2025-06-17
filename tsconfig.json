@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "strict": true,
+    "outDir": "dist",
+    "sourceMap": true,
+    "declaration": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "typeRoots": ["./node_modules/@types", "./src/types"], // Added typeRoots
+    "baseUrl": ".", // Set base directory for module resolution
+    "paths": { // Define path mappings
+      "@prisma/client": ["./generated/prisma"] // Map @prisma/client to the generated output directory
+    }
+  },
+  "include": ["src/**/*", "temp-scripts/**/*", "active_temp_script/**/*"], // Include active_temp_script
+  "exclude": ["node_modules", "dist", "src/services/archive", "**/*.test.ts", "src/**/__mocks__/**/*"] // Exclude test files and mocks
+}

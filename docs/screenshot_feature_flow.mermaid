@@ -1,0 +1,40 @@
+sequenceDiagram
+    participant User
+    participant Frontend (Flag Review UI)
+    participant Backend API
+    participant Screenshot Service
+    participant Playwright/Chromium
+    participant GCS Service
+    participant GCS Bucket
+    participant Database (Prisma)
+
+    User->>Frontend: Clicks "Take Screenshot" button
+    Frontend->>Backend API: POST /api/screenshots {videoId, seconds, flagId}
+    Backend API->>GCS Service: Check cache (HEAD request for path)
+    GCS Service->>GCS Bucket: HEAD gs://bucket/frames/{orgId}/{videoId}_{sec}.png
+    alt Cache Miss
+        GCS Bucket-->>GCS Service: 404 Not Found
+        GCS Service-->>Backend API: Not cached
+        Backend API->>Screenshot Service: captureYoutubeFrame(videoId, seconds)
+        Screenshot Service->>Playwright/Chromium: Launch, Navigate, Seek, Screenshot
+        Playwright/Chromium-->>Screenshot Service: Image Buffer
+        Screenshot Service-->>Backend API: Image Buffer
+        Backend API->>GCS Service: Upload buffer (get path)
+        GCS Service->>GCS Bucket: PUT gs://bucket/frames/...
+        GCS Bucket-->>GCS Service: Upload OK
+        GCS Service-->>Backend API: GCS Path
+        Backend API->>Database: Create content_images record (path, sha256, etc)
+        Database-->>Backend API: New content_image.id
+        Backend API->>Database: Update flags SET image_reference_id = new_id WHERE id = flagId
+        Database-->>Backend API: Update OK
+        Backend API-->>Frontend: 200 OK { screenshotUrl: "...", cached: false }
+    else Cache Hit
+        GCS Bucket-->>GCS Service: 200 OK
+        GCS Service-->>Backend API: Cached (path exists)
+        Backend API->>Database: Find content_images.id WHERE file_path = path
+        Database-->>Backend API: Existing content_image.id
+        Backend API->>Database: Update flags SET image_reference_id = existing_id WHERE id = flagId
+        Database-->>Backend API: Update OK
+        Backend API-->>Frontend: 200 OK { screenshotUrl: "...", cached: true }
+    end
+    Frontend->>User: Show Success/Error Message, Refresh UI

@@ -1,0 +1,96 @@
+# Example Terraform configuration for GCS Bucket Lifecycle Rule
+# Purpose: Automatically transition and delete screenshot objects based on age.
+# Apply this configuration manually or via your infrastructure-as-code pipeline.
+
+# Replace 'your-gcs-bucket-name' with the actual bucket name from your .env file.
+# Ensure the prefix matches the storage path used in gcsService.ts (e.g., "frames/").
+
+resource "google_storage_bucket" "bucket" {
+  # Reference your existing bucket definition or define it here
+  name          = "your-gcs-bucket-name"
+  location      = "US" # Or your bucket's location
+  force_destroy = false # Set to true only if you understand the implications
+
+  # --- Lifecycle Rule for Screenshots ---
+  lifecycle_rule {
+    # Rule applies to objects matching the prefix (screenshots folder)
+    condition {
+      matches_prefix = ["frames/"] # Adjust if your screenshot path prefix is different
+      # You could add other conditions like 'matches_storage_class' if needed
+    }
+
+    # Define actions based on object age
+    action {
+      type          = "SetStorageClass"
+      storage_class = "NEARLINE" # Transition to Nearline (IA equivalent) after 90 days
+    }
+    # Age condition for the above action (applied 90 days after object creation)
+    condition {
+      age = 90
+    }
+  }
+
+  lifecycle_rule {
+    condition {
+      matches_prefix = ["frames/"]
+      age = 365 # Transition to Coldline after 1 year (365 days)
+    }
+    action {
+      type          = "SetStorageClass"
+      storage_class = "COLDLINE"
+    }
+  }
+
+ lifecycle_rule {
+    condition {
+      matches_prefix = ["frames/"]
+      age = 1095 # Transition to Archive after 3 years (1095 days)
+    }
+    action {
+      type          = "SetStorageClass"
+      storage_class = "ARCHIVE"
+    }
+  }
+
+  lifecycle_rule {
+    condition {
+      matches_prefix = ["frames/"]
+      age = 3650 # Delete after 10 years (3650 days) - Adjust as per policy
+    }
+    action {
+      type = "Delete"
+    }
+  }
+
+  # Add other bucket configurations as needed (versioning, logging, etc.)
+  # versioning {
+  #   enabled = true
+  # }
+}
+
+# --- YAML Equivalent Example (for manual config or other tools) ---
+# lifecycle:
+#   rule:
+#     - action:
+#         type: SetStorageClass
+#         storageClass: NEARLINE
+#       condition:
+#         age: 90 # days
+#         matchesPrefix: ["frames/"]
+#     - action:
+#         type: SetStorageClass
+#         storageClass: COLDLINE
+#       condition:
+#         age: 365
+#         matchesPrefix: ["frames/"]
+#     - action:
+#         type: SetStorageClass
+#         storageClass: ARCHIVE
+#       condition:
+#         age: 1095
+#         matchesPrefix: ["frames/"]
+#     - action:
+#         type: Delete
+#       condition:
+#         age: 3650
+#         matchesPrefix: ["frames/"]

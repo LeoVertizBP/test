@@ -1,0 +1,34 @@
+node_modules
+# Keep environment variables out of version control
+.env
+
+# Ignore sensitive key files
+/keys/
+
+# Compiled output
+dist/
+frontend/dist/
+frontend/.next/
+
+# Test coverage
+coverage/
+
+# Logs
+*.log
+job_logs_output/
+
+# macOS specific
+.DS_Store
+
+# Temporary Ignores (to be reviewed post-initial deployment)
+data-exports/
+temp-scripts/
+temp-scripts copy/
+memory-bank/
+migrations/ # Root migrations directory (node-pg-migrate)
+
+# Files/directories to ignore from user request (2025-06-03)
+CLAUDE.md
+docs/INFO FOR CLINE/
+technical_overview.md
+frontend/navigation-flow-diagram.md

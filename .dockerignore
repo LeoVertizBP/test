@@ -1,0 +1,38 @@
+# Git files
+.git
+.gitignore
+
+# Node dependencies (installed within container)
+node_modules
+
+# Build output (generated within container)
+dist
+
+# Environment variables file (should be injected, not copied)
+.env
+.env.*
+!.env.example
+
+# Docker files
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# macOS specific
+.DS_Store
+
+# Project specific folders not needed in runtime image
+frontend/
+data-exports/
+temp-scripts/ # Temporarily allow copying for testing
+memory-bank/
+docs/
+keys/
+migrations/
+# generated/  # Temporarily commented out to allow copying pre-generated Prisma client

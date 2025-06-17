@@ -1,0 +1,10 @@
+{{- /* Placeholder NOTES.txt */ -}}
+The crawler deployment {{ include "crawler.fullname" . }} is ready.
+
+It is configured to run {{ .Values.replicaCount }} replica(s).
+
+Check the status by running:
+  kubectl get pods -l app.kubernetes.io/instance={{ .Release.Name }}
+
+You can tail logs using:
+  kubectl logs -f -l app.kubernetes.io/instance={{ .Release.Name }}
