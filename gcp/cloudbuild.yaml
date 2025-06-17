@@ -9,7 +9,7 @@ steps:
     args:
       - 'build'
       - '-t'
-      - 'gcr.io/ai-compliance/credit-compliance-frontend-prod:latest ./frontend --build-arg NEXT_PUBLIC_API_URL_ARG=https://credit-compliance-backend-prod-230308604765.us-south1.run.app'
+      - 'gcr.io/ai-compliance/credit-compliance-frontend-prod:latest ./ --build-arg NEXT_PUBLIC_API_URL_ARG=https://credit-compliance-backend-prod-230308604765.us-south1.run.app'
       - '.' # Build context is the current directory
 
   # Step 2: Push the Docker image to Google Artifact Registry
